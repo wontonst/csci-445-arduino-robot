@@ -1,9 +1,4 @@
-// Community of Robots//
- 
-// #include<library.c>
- 
-//Dc motor example code//
- 
+
 int motorpinRR = 3;                  //define digital output pin no.
 int motorpinRL = 4;                  //define digital output pin no.
 int motorpinLR = 5;
@@ -19,7 +14,6 @@ void setup () {
 int current_velocity = 0;
  
 void loop () {
-    turnLeftAdvanced(0);
     c_forward(2000);
   c_brakeAll(1500);
     c_reverse(2000);
@@ -29,7 +23,10 @@ void loop () {
     c_turnLeft(5000);
     c_brakeAll(1500);
 }
-
+void testTurns(){
+ 
+    turnLeftX1(2000); 
+}
 void s_brakeAll(){
     s_brakeLeft();
     s_brakeRight();
@@ -39,13 +36,12 @@ void s_brakeAll(){
    delay(time);
  }
 void s_forward(){
-    digitalWrite(motorpinRR, HIGH);
-    digitalWrite(motorpinRL, LOW);
-    digitalWrite(motorpinLR, HIGH);
-    digitalWrite(motorpinLL,LOW);
+  s_forwardRight();
+  s_forwardLeft();
 }
 void c_forward(int time){
-  s_forward();
+  s_forwardLeft();
+  s_forwardRight();
     delay(time);
 }
  
@@ -97,7 +93,23 @@ void c_brakeRight(int time){
   s_brakeRight();
   delay(time);
 }
-void turnLeftAdvanced(int time){
+void s_forwardLeft(){
+    digitalWrite(motorpinLR, HIGH);
+    digitalWrite(motorpinLL,LOW);
+}
+void c_forwardLeft(int time){
+  s_forwardLeft();
+  delay(time);
+}
+void s_forwardRight(){
+    digitalWrite(motorpinRR, HIGH);
+    digitalWrite(motorpinRL, LOW);
+}
+void c_forwardRight(int time){
+  s_forwardRight();
+  delay(time);
+}
+void turnLeftX1(int time){
   for(int i = 0 ;i  != 10; i++){
   c_forward(100);
   c_turnLeft(100);
@@ -105,3 +117,8 @@ void turnLeftAdvanced(int time){
   if(time <= 0)return;
   }
 }
+  
+  void turnLeftX2(int time){
+    s_brakeLeft();
+    
+  }
