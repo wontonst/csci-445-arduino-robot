@@ -1,13 +1,12 @@
-/ Community of Robots//
+// Community of Robots//
+ 
+// #include<library.c>
  
 //Dc motor example code//
  
 int motorpinRR = 3;                  //define digital output pin no.
- 
 int motorpinRL = 4;                  //define digital output pin no.
- 
 int motorpinLR = 5;
- 
 int motorpinLL = 6;
  
 void setup () {
@@ -16,27 +15,23 @@ void setup () {
     pinMode(motorpinLR,OUTPUT);        // set pin 4 as output
     pinMode(motorpinLL,OUTPUT);
 }
+
+int current_velocity = 0;
  
 void loop () {
     
-    forward();
-    delay(2000);
-    stop();
-    delay(1500);
-    reverse();
-    delay(2000);
-    stop();
-    delay(1500);
-    turnRight();
-    delay(2000);
-    stop();
-    delay(1500);
-    turnLeft();
-    delay(2000);
-    stop();
-    delay(1500);
+    forward(2000);
+    stop(1500);
+    reverse(2000);
+    stop(1500);
+    turnRight(2000);
+    stop(1500);
+    turnLeft(2000);
+    stop(1500);
 }
- 
+
+
+
 void stop(int time){
     digitalWrite(motorpinRR,LOW);
     digitalWrite(motorpinRL,LOW);
