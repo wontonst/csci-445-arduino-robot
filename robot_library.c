@@ -1,69 +1,79 @@
-// Community of Robots//
-
+/ Community of Robots//
+ 
 //Dc motor example code//
-
+ 
 int motorpinRR = 3;                  //define digital output pin no.
-
+ 
 int motorpinRL = 4;                  //define digital output pin no.
-
+ 
 int motorpinLR = 5;
-
+ 
 int motorpinLL = 6;
-
+ 
 void setup () {
-
-  pinMode(motorpinRR,OUTPUT);        //set pin 3 as output
-pinMode(motorpinRL,OUTPUT);
-  pinMode(motorpinLR,OUTPUT);        // set pin 4 as output
-pinMode(motorpinLL,OUTPUT);
+    pinMode(motorpinRR,OUTPUT);        //set pin 3 as output
+    pinMode(motorpinRL,OUTPUT);
+    pinMode(motorpinLR,OUTPUT);        // set pin 4 as output
+    pinMode(motorpinLL,OUTPUT);
 }
-
+ 
 void loop () {
-
-  forward(2000);
-  stop(1500);
-  reverse(2000);
-  stop(1500);
-  turnRight(2000);
-  stop(1500);
-  turnLeft(2000);
-  stop(1500);
+    
+    forward();
+    delay(2000);
+    stop();
+    delay(1500);
+    reverse();
+    delay(2000);
+    stop();
+    delay(1500);
+    turnRight();
+    delay(2000);
+    stop();
+    delay(1500);
+    turnLeft();
+    delay(2000);
+    stop();
+    delay(1500);
 }
-
-void stop(){
- digitalWrite(motorpinRR,LOW); 
-  digitalWrite(motorpinRL,LOW); 
-   digitalWrite(motorpinLR,LOW); 
-    digitalWrite(motorpinLL,LOW); 
+ 
+void stop(int time){
+    digitalWrite(motorpinRR,LOW);
+    digitalWrite(motorpinRL,LOW);
+    digitalWrite(motorpinLR,LOW);
+    digitalWrite(motorpinLL,LOW);
+    delay(time);
 }
-
-void forward(){
-  digitalWrite(motorpinRR, HIGH);
-  digitalWrite(motorpinRL, LOW);
-  digitalWrite(motorpinLR, HIGH);
-  digitalWrite(motorpinLL,LOW);  
+ 
+void forward(int time){
+    digitalWrite(motorpinRR, HIGH);
+    digitalWrite(motorpinRL, LOW);
+    digitalWrite(motorpinLR, HIGH);
+    digitalWrite(motorpinLL,LOW);
+    delay(time);
 }
-
-void reverse(){
-  digitalWrite(motorpinRR, LOW);
-  digitalWrite(motorpinRL, HIGH);
-  digitalWrite(motorpinLR, LOW);
-  digitalWrite(motorpinLL,HIGH);  
+ 
+void reverse(int time){
+    digitalWrite(motorpinRR, LOW);
+    digitalWrite(motorpinRL, HIGH);
+    digitalWrite(motorpinLR, LOW);
+    digitalWrite(motorpinLL,HIGH);
+    delay(time);
 }
-
-void turnRight()
+ 
+void turnRight(int time)
 {
-  digitalWrite(motorpinRR, HIGH);
-  digitalWrite(motorpinRL, LOW);
-  digitalWrite(motorpinLR, LOW);
-  digitalWrite(motorpinLL,HIGH);  
+    digitalWrite(motorpinRR, HIGH);
+    digitalWrite(motorpinRL, LOW);
+    digitalWrite(motorpinLR, LOW);
+    digitalWrite(motorpinLL,HIGH);
 }
-
-void turnLeft()
+ 
+void turnLeft(int time)
 {
-  digitalWrite(motorpinRR, LOW);
-  digitalWrite(motorpinRL, HIGH);
-  digitalWrite(motorpinLR, HIGH);
-  digitalWrite(motorpinLL,LOW);  
+    digitalWrite(motorpinRR, LOW);
+    digitalWrite(motorpinRL, HIGH);
+    digitalWrite(motorpinLR, HIGH);
+    digitalWrite(motorpinLL,LOW);
+    delay(time);
 }
-
