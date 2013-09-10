@@ -20,22 +20,14 @@ pinMode(motorpinLL,OUTPUT);
 
 void loop () {
 
-  forward();
-  delay(2000);
-  stop();
-  delay(1500);
-  reverse();
-  delay(2000);
-  stop();
-  delay(1500);
-  turnRight();
-  delay(2000);
-  stop();
-  delay(1500);
-  turnLeft();
-  delay(2000);
-  stop();
-  delay(1500);
+  forward(2000);
+  stop(1500);
+  reverse(2000);
+  stop(1500);
+  turnRight(2000);
+  stop(1500);
+  turnLeft(2000);
+  stop(1500);
 }
 
 void stop(){
