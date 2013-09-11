@@ -1,4 +1,3 @@
-
 int motorpinRR = 3;                  //define digital output pin no.
 int motorpinRL = 4;                  //define digital output pin no.
 int motorpinLR = 5;
@@ -122,3 +121,40 @@ void turnLeftX1(int time){
     s_brakeLeft();
     
   }
+  
+  
+  /*
+  
+  
+class Robot{
+  private:
+  
+  protected:
+  
+  public:
+  ContinuousMovement continuous;
+  
+};
+
+
+
+class Motor{
+
+private:
+int pinR;
+int pinL;
+public:
+Motor(int pinright, int pinleft);
+protected:
+
+};
+  
+  #include "motor.h"
+
+Motor::Motor(int pinright,int pinleft){
+this->pinR = pinright;
+this->pinL = pinleft;
+}
+
+  
+  */
