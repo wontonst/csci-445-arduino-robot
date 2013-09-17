@@ -10,11 +10,14 @@ void Motor::setup(){
 }
 
 void Motor::forward(){
-
+    digitalWrite(this->pinR, HIGH);
+    digitalWrite(this->pinL, LOW);
 }
 void Motor::reverse(){
-
+    digitalWrite(this->pinR, LOW);
+    digitalWrite(this->pinL, HIGH);
 }
 void Motor::brake(){
-
+    digitalWrite(this->pinR,LOW);
+    digitalWrite(this->pinL,LOW);
 }
