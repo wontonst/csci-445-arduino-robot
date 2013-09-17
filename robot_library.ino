@@ -121,7 +121,16 @@ void turnLeftX1(int time){
     s_brakeLeft();
     
   }
-  
+  double irRawtoV(int r){
+ return r*.0048828125; 
+}
+double irVtoCm(double v){
+  return 60.419 * pow( v, -1.13);
+  //return -0.00000197 * pow(v,3) + 0.00068306 * pow(v,2) - 0.08114672 * v + 3.85711882;
+
+//  return -2 * pow(10,-6) * pow(v,3) + .0007 * pow(v,2) - .0811 * v + 3.8571;
+ //return 35.205 * pow(v,-.867); 
+}
   
   /*
   
