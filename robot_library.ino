@@ -2,7 +2,7 @@ int motorpinRR = 3;                  //define digital output pin no.
 int motorpinRL = 4;                  //define digital output pin no.
 int motorpinLR = 5;
 int motorpinLL = 6;
- 
+
 void setup () {
     pinMode(motorpinRR,OUTPUT);        //set pin 3 as output
     pinMode(motorpinRL,OUTPUT);
@@ -10,11 +10,9 @@ void setup () {
     pinMode(motorpinLL,OUTPUT);
 }
 
-int current_velocity = 0;
- 
 void loop () {
     c_forward(2000);
-  c_brakeAll(1500);
+    c_brakeAll(1500);
     c_reverse(2000);
     c_brakeAll(1500);
     c_turnRight(2000);
@@ -23,7 +21,6 @@ void loop () {
     c_brakeAll(1500);
 }
 void testTurns(){
- 
     turnLeftX1(2000); 
 }
 void s_brakeAll(){
@@ -132,38 +129,4 @@ double irVtoCm(double v){
  //return 35.205 * pow(v,-.867); 
 }
   
-  /*
-  
-  
-class Robot{
-  private:
-  
-  protected:
-  
-  public:
-  ContinuousMovement continuous;
-  
-};
 
-
-
-class Motor{
-
-private:
-int pinR;
-int pinL;
-public:
-Motor(int pinright, int pinleft);
-protected:
-
-};
-  
-  #include "motor.h"
-
-Motor::Motor(int pinright,int pinleft){
-this->pinR = pinright;
-this->pinL = pinleft;
-}
-
-  
-  */
