@@ -1,4 +1,4 @@
-#include "motor.h"
+#include "dcmotor.h"
 
 Motor::Motor(int pinright,int pinleft){
 this->pinR = pinright;

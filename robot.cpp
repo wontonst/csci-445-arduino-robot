@@ -1,5 +1,10 @@
 #include "robot.cpp"
 
+Robot(){
+this->dc_wheel_left = new DcMotor(Robot.DC_WHEEL_LEFT_PIN_L, Robot.DC_WHEEL_LEFT_PIN_R);
+this->dc_wheel_left = new DcMotor(Robot.DC_WHEEL_RIGHT_PIN_L,Robot.DC_WHEEL_RIGHT_PIN_R);
+this->ir_sensor_front = new IrSensor();
+}
 void Robot::brakeAll() {
 	brakeLeft();
 	brakeRight();
@@ -25,68 +30,76 @@ void Robot::reverse(int time) {
 	this->reverse();
 	delay(time);
 }
-void s_turnRight() {
-	digitalWrite(motorpinRR, HIGH);
-	digitalWrite(motorpinRL, LOW);
-	digitalWrite(motorpinLR, LOW);
-	digitalWrite(motorpinLL,HIGH);
+void Robot::turnRight() {
+	this->reverseRight();
+	this->forwardLeft();
 }
-void c_turnRight(int time) {
-	s_turnRight();
+void Robot::turnRight(int time) {
+	this->turnRight();
 	delay(time);
 }
-void s_turnLeft() {
-	digitalWrite(motorpinRR, LOW);
-	digitalWrite(motorpinRL, HIGH);
-	digitalWrite(motorpinLR, HIGH);
-	digitalWrite(motorpinLL,LOW);
+void Robot::turnLeft() {
+	this->reverseLeft();
+	this->forwardRight();
 }
-void c_turnLeft(int time) {
-	s_turnLeft();
+void Robot::turnLeft(int time) {
+	this->turnLeft();
 	delay(time);
 }
-void s_brakeLeft() {
-	digitalWrite(motorpinLR,LOW);
-	digitalWrite(motorpinLL,LOW);
+void Robot::brakeLeft() {
+	this->dc_wheel_left->brake();
 }
-void s_brakeRight() {
-	digitalWrite(motorpinRR,LOW);
-	digitalWrite(motorpinRL,LOW);
-}
-void c_brakeLeft(int time) {
-	s_brakeLeft();
+void Robot::brakeLeft(int time) {
+	this->brakeLeft();
 	delay(time);
 }
-void c_brakeRight(int time) {
-	s_brakeRight();
+void Robot::brakeRight() {
+	this->dc_wheel_right->brake();
+}
+void Robot::brakeRight(int time) {
+	this->brakeRight();
 	delay(time);
 }
-void s_forwardLeft() {
-	digitalWrite(motorpinLR, HIGH);
-	digitalWrite(motorpinLL,LOW);
+void Robot::forwardLeft() {
+	this->dc_wheel_left->forward();
 }
-void c_forwardLeft(int time) {
-	s_forwardLeft();
+void Robot::forwardLeft(int time) {
+	this->forwardLeft();
 	delay(time);
 }
-void s_forwardRight() {
-	digitalWrite(motorpinRR, HIGH);
-	digitalWrite(motorpinRL, LOW);
+void Robot:
+forwardRight() {
+	this->dc_wheel_right->forward();
 }
-void c_forwardRight(int time) {
-	s_forwardRight();
+void Robot::forwardRight(int time) {
+	this->forwardRight();
 	delay(time);
 }
-void turnLeftX1(int time) {
+void Robot::turnLeftX1(int time) {
 	for(int i = 0 ; i  != 10; i++) {
-		c_forward(100);
-		c_turnLeft(100);
+		this->forward(100);
+		this->turnLeft(100);
 		time -= 200;
 		if(time <= 0)return;
 	}
 }
-void turnLeftX2(int time) {
-	s_brakeLeft();
-
+void Robot::turnLeftX2(int time) {
+	this->brakeLeft();
+	this->forwardRight(time);
+}
+void Robot::turnLeftX3(int time) {
+	this->forward();
+	int next = 50;
+	while(time > 0) {
+		if(next < time)
+			next = time;
+		this->backLeft(50);
+		time -= 50;
+		if(time <= 0)break;
+		if(next < time)
+			next = time;
+		this->forward(50);
+		time -= 50;
+	}
 }
 
