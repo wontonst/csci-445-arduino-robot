@@ -1,21 +1,22 @@
 #include <robot.h>
 
+
+#include <robot.h>
+
 int motorpinRR = 3;                  //define digital output pin no.
 int motorpinRL = 4;                  //define digital output pin no.
 int motorpinLR = 5;
 int motorpinLL = 6;
  
- Robot* robot;
+Robot* robot;
  
 void setup () {
-  robot = new Robot();
+//  robot = new Robot();
     pinMode(motorpinRR,OUTPUT);        //set pin 3 as output
     pinMode(motorpinRL,OUTPUT);
     pinMode(motorpinLR,OUTPUT);        // set pin 4 as output
     pinMode(motorpinLL,OUTPUT);
 }
-
-int current_velocity = 0;
  
 void loop () {
     c_forward(2000);

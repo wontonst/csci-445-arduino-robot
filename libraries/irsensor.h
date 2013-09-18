@@ -1,5 +1,6 @@
 #ifndef IRSENSOR_H_
 #define IRSENSOR_H_
+
 #include "irobotpart.h"
 
 class IrSensor : public IRobotPart{
@@ -21,6 +22,7 @@ double getDistanceCm();
 int getLastRaw();
 double getLastVoltage();
 double getLastDistanceCm();
+
 
 static double rawToVoltage(int raw);
 static double voltageToDistanceCm(double voltage);

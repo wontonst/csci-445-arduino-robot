@@ -1,4 +1,4 @@
-#include "robot.cpp"
+#include "robot.h"
 
 Robot::Robot(){
 this->dc_wheel_left = new DcMotor(Robot.DC_WHEEL_LEFT_PIN_L, Robot.DC_WHEEL_LEFT_PIN_R);

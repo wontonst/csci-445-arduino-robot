@@ -1,3 +1,5 @@
+#include "irsensor.h"
+
 IrSensor::IrSensor(int pin) {
 	this->pin = pin;
 }
