@@ -1,6 +1,6 @@
 #include "robot.cpp"
 
-Robot(){
+Robot::Robot(){
 this->dc_wheel_left = new DcMotor(Robot.DC_WHEEL_LEFT_PIN_L, Robot.DC_WHEEL_LEFT_PIN_R);
 this->dc_wheel_left = new DcMotor(Robot.DC_WHEEL_RIGHT_PIN_L,Robot.DC_WHEEL_RIGHT_PIN_R);
 this->ir_sensor_front = new IrSensor();
