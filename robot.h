@@ -1,3 +1,5 @@
+#include "dcmotor.h"
+#include "irsensor.h"
 
 class Robot {
 private:

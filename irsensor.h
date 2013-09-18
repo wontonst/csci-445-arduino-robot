@@ -10,6 +10,7 @@ protected:
 
 public:
 IrSensor(int pin);
+void setup();
 
 int getRawOutput();
 double getRawVoltage();

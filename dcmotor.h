@@ -8,6 +8,8 @@ int pinL;
 
 public:
 Motor(int pinright, int pinleft);
+void setup();
+
 void forward();
 void backward();
 void brake();

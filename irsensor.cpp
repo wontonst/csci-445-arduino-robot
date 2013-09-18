@@ -1,6 +1,9 @@
 IrSensor::IrSensor(int pin) {
 	this->pin = pin;
 }
+void IrSensor::setup(){
+
+}
 
 int IrSensor::getLastRaw() {
 	return this->last_value;
