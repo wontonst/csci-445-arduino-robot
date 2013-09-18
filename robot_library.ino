@@ -1,18 +1,25 @@
+#include <robot.h>
+
 int motorpinRR = 3;                  //define digital output pin no.
 int motorpinRL = 4;                  //define digital output pin no.
 int motorpinLR = 5;
 int motorpinLL = 6;
-
+ 
+ Robot* robot;
+ 
 void setup () {
+  robot = new Robot();
     pinMode(motorpinRR,OUTPUT);        //set pin 3 as output
     pinMode(motorpinRL,OUTPUT);
     pinMode(motorpinLR,OUTPUT);        // set pin 4 as output
     pinMode(motorpinLL,OUTPUT);
 }
 
+int current_velocity = 0;
+ 
 void loop () {
     c_forward(2000);
-    c_brakeAll(1500);
+  c_brakeAll(1500);
     c_reverse(2000);
     c_brakeAll(1500);
     c_turnRight(2000);
@@ -21,6 +28,7 @@ void loop () {
     c_brakeAll(1500);
 }
 void testTurns(){
+ 
     turnLeftX1(2000); 
 }
 void s_brakeAll(){
@@ -123,6 +131,9 @@ void turnLeftX1(int time){
 }
 double irVtoCm(double v){
   return 60.419 * pow( v, -1.13);
+  //return -0.00000197 * pow(v,3) + 0.00068306 * pow(v,2) - 0.08114672 * v + 3.85711882;
+
+//  return -2 * pow(10,-6) * pow(v,3) + .0007 * pow(v,2) - .0811 * v + 3.8571;
+ //return 35.205 * pow(v,-.867); 
 }
   
-

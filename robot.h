@@ -1,5 +1,9 @@
+#ifndef ROBOT_H_
+#define ROBOT_H_
+
 #include "dcmotor.h"
 #include "irsensor.h"
+#include "Arduino.h"
 
 class Robot {
 private:
@@ -41,3 +45,5 @@ public:
 	void turnLeftX3(int time);
 
 };
+
+#endif
