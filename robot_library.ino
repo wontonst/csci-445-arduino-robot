@@ -1,8 +1,6 @@
 #include <robot.h>
 
 
-#include <robot.h>
-
 int motorpinRR = 3;                  //define digital output pin no.
 int motorpinRL = 4;                  //define digital output pin no.
 int motorpinLR = 5;
