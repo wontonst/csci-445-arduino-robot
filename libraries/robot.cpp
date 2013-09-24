@@ -5,6 +5,11 @@ Robot::Robot() {
 	this->dc_wheel_right = new DcMotor(Robot::DC_WHEEL_RIGHT_PIN_L,Robot::DC_WHEEL_RIGHT_PIN_R);
 	this->ir_sensor_front = new IrSensor(Robot::IR_SENSOR_FRONT_PIN);
 }
+void Robot::setup() {
+	this->dc_wheel_left->setup();
+	this->dc_wheel_right->setup();
+	ir_sensor_front->setup();
+}
 void Robot::brakeAll() {
 	brakeLeft();
 	brakeRight();
