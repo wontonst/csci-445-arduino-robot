@@ -18,7 +18,7 @@ public:
 	static const int DC_WHEEL_LEFT_PIN_L  = 6;
 	static const int DC_WHEEL_LEFT_PIN_R = 5 ;
 	static const int DC_WHEEL_RIGHT_PIN_L = 4;
-	static const int DC_WHEEL_RIGH_PIN_R = 3;
+	static const int DC_WHEEL_RIGHT_PIN_R = 3;
 
 	Robot();
 	void brakeAll();
@@ -27,18 +27,26 @@ public:
 	void forward(int time);
 	void reverse();
 	void reverse(int time);
+	
 	void turnRight();
 	void turnRight(int time);
 	void turnLeft();
 	void turnLeft(int time);
+	
 	void brakeLeft();
 	void brakeLeft(int time);
 	void brakeRight();
 	void brakeRight(int time);
+	
 	void forwardLeft();
 	void forwardLeft(int time);
 	void forwardRight();
 	void forwardRight(int time);
+	
+	void reverseLeft();
+	void reverseLeft(int time);
+	void reverseRight();
+	void reverseRight(int time);
 
 	void turnLeftX1(int time);
 	void turnLeftX2(int time);

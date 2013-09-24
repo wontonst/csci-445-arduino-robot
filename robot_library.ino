@@ -6,7 +6,7 @@ int motorpinRL = 4;                  //define digital output pin no.
 int motorpinLR = 5;
 int motorpinLL = 6;
  
-Robot* robot;
+Robot* robot = new Robot();
  
 void setup () {
 //  robot = new Robot();
@@ -136,3 +136,4 @@ double irVtoCm(double v){
  //return 35.205 * pow(v,-.867); 
 }
   
+

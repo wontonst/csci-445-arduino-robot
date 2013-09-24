@@ -1,9 +1,9 @@
 #include "robot.h"
 
-Robot::Robot(){
-this->dc_wheel_left = new DcMotor(Robot.DC_WHEEL_LEFT_PIN_L, Robot.DC_WHEEL_LEFT_PIN_R);
-this->dc_wheel_left = new DcMotor(Robot.DC_WHEEL_RIGHT_PIN_L,Robot.DC_WHEEL_RIGHT_PIN_R);
-this->ir_sensor_front = new IrSensor();
+Robot::Robot() {
+	this->dc_wheel_left = new DcMotor(Robot::DC_WHEEL_LEFT_PIN_L, Robot::DC_WHEEL_LEFT_PIN_R);
+	this->dc_wheel_left = new DcMotor(Robot::DC_WHEEL_RIGHT_PIN_L,Robot::DC_WHEEL_RIGHT_PIN_R);
+	this->ir_sensor_front = new IrSensor(Robot::IR_SENSOR_FRONT_PIN);
 }
 void Robot::brakeAll() {
 	brakeLeft();
@@ -67,14 +67,29 @@ void Robot::forwardLeft(int time) {
 	this->forwardLeft();
 	delay(time);
 }
-void Robot:
-forwardRight() {
+void Robot::forwardRight() {
 	this->dc_wheel_right->forward();
 }
 void Robot::forwardRight(int time) {
 	this->forwardRight();
 	delay(time);
 }
+void Robot::reverseLeft() {
+	this->dc_wheel_left->reverse();
+}
+void Robot::reverseLeft(int time) {
+	this->dc_wheel_left->reverse();
+	delay(time);
+}
+void Robot::reverseRight() {
+	this->dc_wheel_right->reverse();
+}
+void Robot::reverseRight(int time) {
+	this->dc_wheel_right->reverse();
+	delay(time);
+}
+
+
 void Robot::turnLeftX1(int time) {
 	for(int i = 0 ; i  != 10; i++) {
 		this->forward(100);
@@ -93,7 +108,7 @@ void Robot::turnLeftX3(int time) {
 	while(time > 0) {
 		if(next < time)
 			next = time;
-		this->backLeft(50);
+		this->reverseLeft(50);
 		time -= 50;
 		if(time <= 0)break;
 		if(next < time)

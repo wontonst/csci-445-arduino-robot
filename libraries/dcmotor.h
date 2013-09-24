@@ -1,7 +1,8 @@
 #ifndef DCMOTOR_H_
 #define DCMOTOR_H_
-
 #include "irobotpart.h"
+#include <Arduino.h>
+
 class DcMotor : public IRobotPart{
 
 private:
@@ -13,8 +14,11 @@ DcMotor(int pinright, int pinleft);
 void setup();
 
 void forward();
-void backward();
+void reverse();
 void brake();
 
 };
 #endif
+
+
+

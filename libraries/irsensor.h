@@ -2,6 +2,7 @@
 #define IRSENSOR_H_
 
 #include "irobotpart.h"
+#include <Arduino.h>
 
 class IrSensor : public IRobotPart{
 
@@ -23,9 +24,8 @@ int getLastRaw();
 double getLastVoltage();
 double getLastDistanceCm();
 
-
-static double rawToVoltage(int raw);
-static double voltageToDistanceCm(double voltage);
+double rawToVoltage(int raw);
+double voltageToDistanceCm(double voltage);
 };
 
 
