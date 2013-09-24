@@ -15,10 +15,10 @@ protected:
 public:
 	static const int IR_SENSOR_FRONT_PIN = 0;
 
-	static const int DC_WHEEL_LEFT_PIN_L  = 6;
-	static const int DC_WHEEL_LEFT_PIN_R = 5 ;
-	static const int DC_WHEEL_RIGHT_PIN_L = 4;
-	static const int DC_WHEEL_RIGHT_PIN_R = 3;
+	static const int DC_WHEEL_LEFT_PIN_L  = 5;
+	static const int DC_WHEEL_LEFT_PIN_R = 6 ;
+	static const int DC_WHEEL_RIGHT_PIN_L = 3;
+	static const int DC_WHEEL_RIGHT_PIN_R = 4;
 
 	Robot();
 	void brakeAll();
@@ -51,6 +51,8 @@ public:
 	void turnLeftX1(int time);
 	void turnLeftX2(int time);
 	void turnLeftX3(int time);
+	
+	void followWall();
 
 };
 
