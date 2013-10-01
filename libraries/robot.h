@@ -4,8 +4,7 @@
 #include "dcmotor.h"
 #include "irsensor.h"
 #include "Arduino.h"
-#include "servomotor.h"
-#include "sonar.h"
+#include "turnablesonar.h"
 
 /**
 @brief high-level abstraction of the robot
@@ -15,16 +14,16 @@ private:
 	DcMotor* dc_wheel_left;///<left wheel controller
 	DcMotor* dc_wheel_right;///<right wheel controller
 	IrSensor* ir_sensor_left;///<left-facing IR sensor
-	//TurnableSonar sonar_sensor_turnable_front;///<forward-facing sonar, turnable
+	TurnableSonar* sonar_sensor_turnable_front;///<forward-facing sonar, turnable
 protected:
 
 public:
 	static const int IR_SENSOR_LEFT_PIN = 0;///<forward IR sensor pin number
 
-	static const int DC_WHEEL_LEFT_PIN_L  = 6;
-	static const int DC_WHEEL_LEFT_PIN_R = 5 ;
-	static const int DC_WHEEL_RIGHT_PIN_L = 4;
-	static const int DC_WHEEL_RIGHT_PIN_R = 3;
+	static const int DC_WHEEL_LEFT_PIN_L  = 5;
+	static const int DC_WHEEL_LEFT_PIN_R = 6 ;
+	static const int DC_WHEEL_RIGHT_PIN_L = 3;
+	static const int DC_WHEEL_RIGHT_PIN_R = 4;
 	static const int SERVO_SONAR_FRONT_PIN = 9;
 	static const int SONAR_SENSOR_FRONT_PIN = 7;
 
@@ -64,7 +63,8 @@ public:
 	void turnLeftX3(int time);
 
 	void followWall();
-
+void turnTest();
+void circleTest();
 };
 
 #endif

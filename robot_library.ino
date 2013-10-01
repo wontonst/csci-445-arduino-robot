@@ -1,3 +1,4 @@
+
 #include <robot.h>
 
 #include <Servo.h>
@@ -12,8 +13,13 @@ void setup () {
 }
 
 void loop () {
-  leftTurnTest();
+ // leftTurnTest2();
+ //robot->turnTest();
+ //diagnostic();
+robot->circleTest();
   //robot->followWall();
+  
+  delay(1000000);
   }
   void diagnostic(){
 
@@ -27,6 +33,17 @@ void loop () {
     robot->brakeAll(1500);
   }
 
+void leftTurnTest2(){
+  robot->turnRight(5500);
+  robot->brakeAll(5000);
+  robot->turnLeft(5500);
+  robot->brakeAll(5000);
+  
+  robot->turnRight(900);
+  robot->brakeAll(5000);
+  robot->turnLeft(900);
+  robot->brakeAll(5000);
+}
 void leftTurnTest(){
   
   robot->turnRight(200);

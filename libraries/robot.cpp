@@ -4,11 +4,13 @@ Robot::Robot() {
 	this->dc_wheel_left = new DcMotor(Robot::DC_WHEEL_LEFT_PIN_L, Robot::DC_WHEEL_LEFT_PIN_R);
 	this->dc_wheel_right = new DcMotor(Robot::DC_WHEEL_RIGHT_PIN_L,Robot::DC_WHEEL_RIGHT_PIN_R);
 	this->ir_sensor_left = new IrSensor(Robot::IR_SENSOR_LEFT_PIN);
+	this->sonar_sensor_turnable_front = new TurnableSonar(Robot::SONAR_SENSOR_FRONT_PIN,Robot::SERVO_SONAR_FRONT_PIN);
 }
 void Robot::setup() {
 	this->dc_wheel_left->setup();
 	this->dc_wheel_right->setup();
 	this->ir_sensor_left->setup();
+	this->sonar_sensor_turnable_front->setup();
 }
 void Robot::brakeAll() {
 	brakeLeft();
@@ -136,4 +138,62 @@ void Robot::followWall() {
 			this->turnLeft(200);
 		} else forward(200);
 	}
+}
+
+void Robot::turnTest() {
+	this->sonar_sensor_turnable_front->turnTest();
+}
+
+void Robot::circleTest() {
+
+	this->sonar_sensor_turnable_front->sensorPass();
+	while(true){//!this->sonar_sensor_turnable_front->circleFinished()) {
+	/*	if(this->sonar_sensor_turnable_front->hasZeroes()) {
+			switch(sonar_sensor_turnable_front->getDirection()) {
+			case 0:
+				this->turnLeft(800);
+				break;
+			case 1:
+				this->forward(1000);
+				break;
+			case 2:
+				this->turnRight(800);
+				break;
+			}
+			if(sonar_sensor_turnable_front->getDirection() != 4)
+				continue;
+		}*/
+		switch(this->sonar_sensor_turnable_front->getGreatest()) {
+		case 4:
+			this->turnLeft(800);
+			this->brakeAll(100);
+			this->forward(600);
+			this->brakeAll(100);
+			break;
+		case 3:
+			this->turnLeft(500);
+			this->brakeAll(100);
+			this->forward(600);
+			this->brakeAll(100);
+			break;
+		case 2:
+			this->forward(600);
+			this->brakeAll(100);
+			break;
+		case 1:
+			this->turnRight(500);
+			this->brakeAll(100);
+			this->forward(600);
+			this->brakeAll(100);
+			break;
+		case 0:
+			this->turnRight(800);
+			this->brakeAll(100);
+			this->forward(600);
+			this->brakeAll(100);
+			break;
+		}
+		this->sonar_sensor_turnable_front->sensorPass();
+	}
+
 }

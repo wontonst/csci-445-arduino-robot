@@ -17,10 +17,16 @@ long Sonar::getRaw() {
 	return pulseIn(this->pin, HIGH);
 }
 long Sonar::getInches() {
-	return microsecondsToInches(this->getRaw());
+int result = this->getRaw();
+	if(result == 0) return 10000;
+	return microsecondsToInches(result);
 }
 long Sonar::getCm() {
-	return microsecondsToCentimeters(this->getRaw());
+int result = this->getRaw();
+	if(result == 0) return 10000;
+	
+	Serial.println(result);
+	return microsecondsToCentimeters(result);
 }
 
 long Sonar::microsecondsToInches(long microseconds) {
