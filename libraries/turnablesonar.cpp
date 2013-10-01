@@ -1,72 +1,59 @@
 #include "turnablesonar.h"
 
 TurnableSonar::TurnableSonar(int sonarpin, int servopin) {
-	this->servo_sonar_front = new ServoMotor(servopin);
-	this->sonar_sensor_front = new Sonar(sonarpin);
-
-//	this->batchdata = new int[5];
-//	this->batchkeys = new int[5];
+	this->servo = new ServoMotor(servopin);
+	this->sonar = new Sonar(sonarpin);
+	this->setDensity(5);
 }
-
 void TurnableSonar::setup() {
-	this->servo_sonar_front->setup();
-	this->sonar_sensor_front->setup();
+	this->servo->setup();
+	this->sonar->setup();
 }
-
-
-void TurnableSonar::turnTest() {
-	sensorPass();
-
+void TurnableSonar::setDensity(int d) {
+	this->density = d;
+	if(this->batchdata != null)
+		delete[] batchdata;
+	this->batchdata = new int[d];
 }
 void TurnableSonar::sensorPass() {
-	this->leftRightPass();
-	/*int angle = 180;
-	for(int i = 4 ; i != -1; i--) {
-		this->servo_sonar_front->turnTo(angle);
-		delay(300);
-		this->batchdata[i] = (this->batchdata[i] + this->sonar_sensor_front->getCm()) /2;
-		delay(300);
-		angle -= 45;
-	}*/
+	if (this->servo->getAngle() >= 90) {
+		rightLeftPass();
+		return;
+	}
+	leftRightPass();
 }
 void TurnableSonar::leftRightPass() {
-
-		this->servo_sonar_front->turnTo(0);
-		delay(200);
-		this->batchdata[1] = this->sonar_sensor_front->getCm();
-		delay(200);		this->servo_sonar_front->turnTo(45);
-		delay(200);
-		this->batchdata[2] = this->sonar_sensor_front->getCm();
-		delay(200);		this->servo_sonar_front->turnTo(90);
-		delay(200);
-		this->batchdata[3] = this->sonar_sensor_front->getCm();
-		delay(200);		this->servo_sonar_front->turnTo(135);
-		delay(200);
-		this->batchdata[4] = this->sonar_sensor_front->getCm();
-		delay(200);		this->servo_sonar_front->turnTo(180);
-		delay(200);
-		this->batchdata[0] = this->sonar_sensor_front->getCm();
-		delay(200);
-/*	int angle = 0;
-	for(int i = 0; i != 5; i++) {
-		this->servo_sonar_front->turnTo(angle);
-		delay(300);
-		this->batchdata[i] = this->sonar_sensor_front->getCm();
-		delay(300);
-		angle += 45;
-	}*/
+	int angle = 0;
+	int increment = 180/this->density;
+	this->servo->turnTo(angle);
+	delay(500);
+	for(int i = 0; i != this->density; i++) {
+		this->batchdata[i] = this->sonar->getCmSampled(SAMPLE_SIZE);
+		delay(50);
+		angle += increment;
+		this->servo->turnTo(angle);
+		if(i+1 != this->density)
+			delay(300);
+	}
 }
 void TurnableSonar::rightLeftPass() {
 	int angle = 180;
-	for(int i = 4; i != -1; i--) {
-		this->servo_sonar_front->turnTo(angle);
-		delay(300);
-		this->batchdata[i] = this->sonar_sensor_front->getCm();
-		delay(300);
-		angle -= 45;
+	int increment = 180/this->density;
+	this->servo->turnTo(angle);
+	delay(500);
+	for(int i = this->density-1; i != -1; i--) {
+		this->batchdata[i] = this->sonar->getCmSampled(SAMPLE_SIZE);
+		delay(50);
+		angle -= increment;
+		this->servo->turnTo(angle);
+		if(i-1 != -1)
+			delay(300);
 	}
 }
 
+int TurnableSonar::getValueAt(int angle){
+return this->batchdata[angle/this->density];
+}
 bool TurnableSonar::circleFinished() {
 	for(int i = 0 ; i != 5; i++) {
 		for(int ii  = i+1; ii < 5; ii++) {
@@ -76,18 +63,19 @@ bool TurnableSonar::circleFinished() {
 	}
 	return true;
 }
-int TurnableSonar::getGreatest() {
+int TurnableSonar::getGreatestAngle() {
 	int g = 0;
 	for(int i = 0 ; i != 5; i++) {
+		if(this->batchdata[i] == 0)return i*this->density;
 		if(this->batchdata[i] > this->batchdata[g])
 			g = i;
 	}
-	return g;
+	return g*this->density;
 }
 bool TurnableSonar::hasMultipleZeroes() {
 	bool has = false;
 	for(int i = 0; i  != 5; i ++) {
-		if(this->batchdata[i] == 10000) {
+		if(this->batchdata[i] == 0) {
 			if(has == true) return true;
 			has = true;
 		}
@@ -96,13 +84,10 @@ bool TurnableSonar::hasMultipleZeroes() {
 }
 bool TurnableSonar::hasZeroes() {
 	for(int i = 0 ; i != 5; i++) {
-		if(this->batchdata[i] == 10000)return true;
+		if(this->batchdata[i] == 0)return true;
 	}
 	return false;
 }
-int TurnableSonar::getDirection() {
-	if(this->batchdata[0] == 10000)return 2;
-	if(this->batchdata[2] == 10000)return 1;
-	if(this->batchdata[4] == 10000)return 0;
-	return 4;
+void TurnableSonar::turnTest() {
+	sensorPass();
 }

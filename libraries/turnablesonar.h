@@ -5,35 +5,36 @@
 #include "servomotor.h"
 #include "sonar.h"
 
-#include <map>
-#include <vector>
 
 class TurnableSonar : IRobotPart{
 
 private:
-ServoMotor* servo_sonar_front;///<servo used to turn the sonar
-Sonar* sonar_sensor_front;///<forward-facing sonar
+ServoMotor* servo;///<servo used to turn the sonar
+Sonar* sonar;///<forward-facing sonar
 
-//map<int,long> batchdata;
-//vector<int> batchdatakeys;
-
-int batchdata[5];
-int batchkeys[5];
+int* batchdata;
+int density;
 
 public:
+
+static const int SAMPLE_SIZE = 4;
+
 TurnableSonar(int sonarpin, int servopin);
 void setup();
 
-void turnTest();
-
+/*STANDARD FUNCTIONS*/
+void setDensity(int d);
 void sensorPass();
 void leftRightPass();
 void rightLeftPass();
+int getValueAt(int angle);
+
+int getGreatestAngle();
 
 bool circleFinished();
-int getGreatest();
 bool hasMultipleZeroes();
 bool hasZeroes();
 int getDirection();
+void turnTest();
 };
 #endif

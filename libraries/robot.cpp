@@ -147,46 +147,32 @@ void Robot::turnTest() {
 void Robot::circleTest() {
 
 	this->sonar_sensor_turnable_front->sensorPass();
-	while(true){//!this->sonar_sensor_turnable_front->circleFinished()) {
-	/*	if(this->sonar_sensor_turnable_front->hasZeroes()) {
-			switch(sonar_sensor_turnable_front->getDirection()) {
-			case 0:
-				this->turnLeft(800);
-				break;
-			case 1:
-				this->forward(1000);
-				break;
-			case 2:
-				this->turnRight(800);
-				break;
-			}
-			if(sonar_sensor_turnable_front->getDirection() != 4)
-				continue;
-		}*/
-		switch(this->sonar_sensor_turnable_front->getGreatest()) {
-		case 4:
+	while(true) { //!this->sonar_sensor_turnable_front->circleFinished()) {
+
+		switch(this->sonar_sensor_turnable_front->getGreatestAngle()) {
+		case 0:
 			this->turnLeft(800);
 			this->brakeAll(100);
 			this->forward(600);
 			this->brakeAll(100);
 			break;
-		case 3:
+		case 45:
 			this->turnLeft(500);
 			this->brakeAll(100);
 			this->forward(600);
 			this->brakeAll(100);
 			break;
-		case 2:
+		case 90:
 			this->forward(600);
 			this->brakeAll(100);
 			break;
-		case 1:
+		case 135:
 			this->turnRight(500);
 			this->brakeAll(100);
 			this->forward(600);
 			this->brakeAll(100);
 			break;
-		case 0:
+		case 180:
 			this->turnRight(800);
 			this->brakeAll(100);
 			this->forward(600);

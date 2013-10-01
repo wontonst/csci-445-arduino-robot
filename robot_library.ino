@@ -1,6 +1,5 @@
 
 #include <robot.h>
-
 #include <Servo.h>
 
 Robot* robot = new Robot();
