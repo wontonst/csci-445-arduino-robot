@@ -8,7 +8,7 @@ void setup () {
 }
 
 void loop () {
-  robot->followWall()
+  robot->followWall();
   }
 
   void diagnostic(){

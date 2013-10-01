@@ -24,6 +24,9 @@ public:
 	static const int DC_WHEEL_RIGHT_PIN_R = 3;
 
 	Robot();
+	
+	void setup();
+	
 	void brakeAll();
 	void brakeAll(int time);
 	void forward();
