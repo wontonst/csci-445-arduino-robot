@@ -3,12 +3,12 @@
 Robot::Robot() {
 	this->dc_wheel_left = new DcMotor(Robot::DC_WHEEL_LEFT_PIN_L, Robot::DC_WHEEL_LEFT_PIN_R);
 	this->dc_wheel_right = new DcMotor(Robot::DC_WHEEL_RIGHT_PIN_L,Robot::DC_WHEEL_RIGHT_PIN_R);
-	this->ir_sensor_front = new IrSensor(Robot::IR_SENSOR_FRONT_PIN);
+	this->ir_sensor_left = new IrSensor(Robot::IR_SENSOR_LEFT_PIN);
 }
 void Robot::setup() {
 	this->dc_wheel_left->setup();
 	this->dc_wheel_right->setup();
-	ir_sensor_front->setup();
+	this->ir_sensor_left->setup();
 }
 void Robot::brakeAll() {
 	brakeLeft();
@@ -127,7 +127,7 @@ void Robot::followWall() {
 	this->brakeAll();
 	delay(2000);
 	while(true) {
-		double currd = this->ir_sensor_front->getDistanceCm();
+		double currd = this->ir_sensor_left->getDistanceCm();
 		if(currd < 35.0) {
 			this->brakeAll(100);
 			this->turnRight(200);
