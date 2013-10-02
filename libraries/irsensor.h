@@ -19,6 +19,10 @@ public:
 	int getRawOutput();///<get the raw output from the IR sensor (not very useful)
 	double getRawVoltage();///<get the raw voltage from the IR sensor (not very useful)
 	double getDistanceCm();///<get the calculated distance in CM from the IR sensor
+	
+	int getRawOutputSampled(int samples);
+	double getRawVoltageSampled(int samples);
+	double getDistanceCmSampled(int samples);
 
 	int getLastRaw();///< get the last checked raw value (not very useful)
 	double getLastVoltage();///<get the last checked value's voltage (not very useful)
