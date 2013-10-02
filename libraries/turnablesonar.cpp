@@ -11,7 +11,7 @@ void TurnableSonar::setup() {
 }
 void TurnableSonar::setDensity(int d) {
 	this->density = d;
-	if(this->batchdata != null)
+	if(this->batchdata != NULL)
 		delete[] batchdata;
 	this->batchdata = new int[d];
 }
