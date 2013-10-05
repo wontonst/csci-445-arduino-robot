@@ -4,6 +4,7 @@
 #include "irobotpart.h"
 #include "servomotor.h"
 #include "sonar.h"
+#include "Arduino.h"
 
 
 class TurnableSonar : IRobotPart{
@@ -30,6 +31,9 @@ void rightLeftPass();
 int getValueAt(int angle);
 
 int getGreatestAngle();
+
+void sonarDiagnostic();
+void printSonarValues();
 
 bool circleFinished();
 bool hasMultipleZeroes();

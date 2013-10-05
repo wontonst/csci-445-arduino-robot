@@ -1,7 +1,7 @@
 
 #include <robot.h>
 #include <Servo.h>
-
+#include <sonar.h>
 Robot* robot = new Robot();
 
 void setup () {
@@ -11,14 +11,18 @@ void setup () {
   
 }
 
+//Sonar* s1 = new Sonar(Robot::SONAR_SENSOR_FRONT_PIN);
 void loop () {
  // leftTurnTest2();
  //robot->turnTest();
  //diagnostic();
-robot->circleTest();
+//robot->circleTest();
+//robot->frontSonarTest();
   //robot->followWall();
-  
-  delay(1000000);
+  //Serial.println(s1->getCmSampled(10));
+  //robot->diagnostic();
+ // delay(1030);
+  //delay(1000000);
   }
   void diagnostic(){
 

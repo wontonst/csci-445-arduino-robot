@@ -23,17 +23,18 @@ long Sonar::getCm() {
 	return microsecondsToCentimeters(this->getRaw());
 }
 
-long Sonar::getRawSampled(int samples) {
-	int tot = 0;
+long Sonar::getRawSampled(long samples) {
+	long tot = 0;
 	for(int i = 0; i != samples; i++) {
-		tot += this->getCm();
+		tot += this->getRaw();
+		delay(5);
 	}
 	return tot/samples;
 }
-long Sonar::getInchesSampled(int samples) {
+long Sonar::getInchesSampled(long samples) {
 return microsecondsToInches(this->getRawSampled(samples));
 }
-long Sonar::getCmSampled(int samples) {
+long Sonar::getCmSampled(long samples) {
 	return microsecondsToCentimeters(this->getRawSampled(samples));
 }
 

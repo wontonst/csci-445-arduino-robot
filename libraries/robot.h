@@ -28,9 +28,9 @@ public:
 	static const int SONAR_SENSOR_FRONT_PIN = 7;
 
 	Robot();
-	
+
 	void setup();
-	
+
 	void brakeAll();
 	void brakeAll(int time);
 	void forward();
@@ -62,9 +62,10 @@ public:
 	void turnLeftX2(int time);
 	void turnLeftX3(int time);
 
+	void frontSonarTest();
 	void followWall();
-void turnTest();
-void circleTest();
+	void turnTest();
+	void circleTest();
 };
 
 #endif

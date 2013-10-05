@@ -124,7 +124,9 @@ void Robot::turnLeftX3(int time) {
 		time -= 50;
 	}
 }
-
+void Robot::frontSonarTest(){
+this->sonar_sensor_turnable_front->sonarDiagnostic();
+}
 void Robot::followWall() {
 	this->brakeAll();
 	delay(2000);
