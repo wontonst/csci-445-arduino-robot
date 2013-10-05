@@ -66,6 +66,8 @@ public:
 	void followWall();
 	void turnTest();
 	void circleTest();
+	
+	void diagnostic();
 };
 
 #endif

@@ -10,10 +10,14 @@ void TurnableSonar::setup() {
 	this->sonar->setup();
 }
 void TurnableSonar::setDensity(int d) {
+	if(d <= 1)return;
 	this->density = d;
 	if(this->batchdata != NULL)
 		delete[] batchdata;
 	this->batchdata = new int[d];
+	for(int i = 0 ; i!= d; i++) {
+		this->batchdata[i] = -1;
+	}
 }
 void TurnableSonar::sensorPass() {
 	if (this->servo->getAngle() >= 90) {
@@ -24,7 +28,7 @@ void TurnableSonar::sensorPass() {
 }
 void TurnableSonar::leftRightPass() {
 	int angle = 0;
-	int increment = 180/(this->density-1);
+	int increment = 165/(this->density-1);
 	this->servo->turnTo(angle);
 	delay(500);
 	for(int i = 0; i != this->density; i++) {
@@ -33,13 +37,13 @@ void TurnableSonar::leftRightPass() {
 		delay(50);
 		angle += increment;
 		this->servo->turnTo(angle);
-		if(i+1 != this->density)
+		//if(i+1 != this->density)
 			delay(200);
 	}
 }
 void TurnableSonar::rightLeftPass() {
-	int angle = 180;
-	int increment = 180/(this->density-1);
+	int angle = 165;
+	int increment = 165/(this->density-1);
 	this->servo->turnTo(angle);
 	delay(500);
 	for(int i = this->density-1; i != -1; i--) {
@@ -47,13 +51,13 @@ void TurnableSonar::rightLeftPass() {
 		delay(50);
 		angle -= increment;
 		this->servo->turnTo(angle);
-		if(i-1 != -1)
+		//if(i-1 != -1)
 			delay(200);
 	}
 }
 
-int TurnableSonar::getValueAt(int angle){
-return this->batchdata[angle/this->density];
+int TurnableSonar::getValueAt(int angle) {
+	return this->batchdata[angle/this->density];
 }
 bool TurnableSonar::circleFinished() {
 	for(int i = 0 ; i != 5; i++) {
@@ -92,15 +96,19 @@ bool TurnableSonar::hasZeroes() {
 void TurnableSonar::turnTest() {
 	sensorPass();
 }
-void TurnableSonar::printSonarValues(){
-Serial.print("(");
-for(int i = 0 ; i != this->density; i++){
-Serial.print(this->batchdata[i]);
-Serial.print(" ");
+void TurnableSonar::printSonarValues() {
+	Serial.print("(");
+	for(int i = 0 ; i != this->density; i++) {
+		Serial.print(this->batchdata[i]);
+		Serial.print(" ");
+	}
+	Serial.println(")");
 }
-Serial.println(")");
-}
-void TurnableSonar::sonarDiagnostic(){
-this->sensorPass();
-this->printSonarValues();
+void TurnableSonar::sonarDiagnostic() {
+	for(int i = 2; i != 20; i++) {
+		this->setDensity(i);
+		this->sensorPass();
+		this->sensorPass();
+		this->printSonarValues();
+	}
 }

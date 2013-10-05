@@ -124,8 +124,8 @@ void Robot::turnLeftX3(int time) {
 		time -= 50;
 	}
 }
-void Robot::frontSonarTest(){
-this->sonar_sensor_turnable_front->sonarDiagnostic();
+void Robot::frontSonarTest() {
+	this->sonar_sensor_turnable_front->sonarDiagnostic();
 }
 void Robot::followWall() {
 	this->brakeAll();
@@ -184,4 +184,9 @@ void Robot::circleTest() {
 		this->sonar_sensor_turnable_front->sensorPass();
 	}
 
+}
+
+void Robot::diagnostic() {
+	this->turnRight(800);
+	this->brakeAll(200);
 }

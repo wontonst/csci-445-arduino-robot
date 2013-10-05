@@ -3,6 +3,7 @@
 
 #include "irobotpart.h"
 #include "Servo.h"
+#include "Arduino.h"
 
 class ServoMotor : IRobotPart{
 private:
