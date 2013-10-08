@@ -16,7 +16,9 @@ void setup () {
   robot->setup();
   //sm->setup();
 }
-
+int l; 
+int r; 
+int m;
 void loop () {
   // robot->forward();
   //for(int i = 0 ; i != 16; i++){
@@ -31,14 +33,13 @@ void loop () {
   //delay(1500);
   // leftTurnTest2();
   //robot->turnTest();
-  // diagnostic();
-  //robot->circleTest();
-  robot->frontSonarTest();
+  //  diagnostic();
+   robot->circleTest();
+  // robot->frontSonarTest();
   //robot->followWall();
   //Serial.println(s1->getCmSampled(10));
   // robot->diagnostic();
-  // delay(1030);
-  //delay(1000000);
+   delay(103000);
 }
 void diagnostic(){
 
@@ -97,4 +98,6 @@ void leftTurnTest(){
 
 
 }
+
+
 

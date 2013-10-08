@@ -38,7 +38,7 @@ void TurnableSonar::leftRightPass() {
 		angle += increment;
 		this->servo->turnTo(angle);
 		//if(i+1 != this->density)
-			delay(200);
+		delay(200);
 	}
 }
 void TurnableSonar::rightLeftPass() {
@@ -52,12 +52,12 @@ void TurnableSonar::rightLeftPass() {
 		angle -= increment;
 		this->servo->turnTo(angle);
 		//if(i-1 != -1)
-			delay(200);
+		delay(200);
 	}
 }
 
 int TurnableSonar::getValueAt(int angle) {
-	return this->batchdata[angle/this->density];
+	return this->batchdata[2];//(180-angle)/(180/(this->density-1))];
 }
 bool TurnableSonar::circleFinished() {
 	for(int i = 0 ; i != 5; i++) {
@@ -69,13 +69,12 @@ bool TurnableSonar::circleFinished() {
 	return true;
 }
 int TurnableSonar::getGreatestAngle() {
-	int g = 0;
+	int g = -1;
 	for(int i = 0 ; i != 5; i++) {
-		if(this->batchdata[i] == 0)return i*this->density;
 		if(this->batchdata[i] > this->batchdata[g])
 			g = i;
 	}
-	return g*this->density;
+	return g*(180/(this->density-1));
 }
 bool TurnableSonar::hasMultipleZeroes() {
 	bool has = false;
@@ -104,6 +103,9 @@ void TurnableSonar::printSonarValues() {
 	}
 	Serial.println(")");
 }
+void TurnableSonar::turnTo(int i){
+this->servo->turnTo(i);
+}
 void TurnableSonar::sonarDiagnostic() {
 	for(int i = 2; i != 20; i++) {
 		this->setDensity(i);
@@ -111,4 +113,22 @@ void TurnableSonar::sonarDiagnostic() {
 		this->sensorPass();
 		this->printSonarValues();
 	}
+}
+void TurnableSonar::debug() {
+	for(int i = 0 ; i != this->density; i++) {
+		Serial.print("{");
+		Serial.print(i);
+		Serial.print(": ");
+		Serial.print( this->batchdata[i] );
+		Serial.print( "}");
+	}
+	Serial.println();
+	delay(2500);
+}
+void TurnableSonar::retakeValueAt(int angle){
+this->servo->turnTo(90);
+this->batchdata[2] = this->sonar->getCmSampled(5);
+}
+int TurnableSonar::getValue(){
+return this->sonar->getCmSampled(5);
 }

@@ -29,6 +29,9 @@ void sensorPass();
 void leftRightPass();
 void rightLeftPass();
 int getValueAt(int angle);
+void retakeValueAt(int angle);
+int getValue();
+void turnTo(int i);
 
 int getGreatestAngle();
 
@@ -40,5 +43,6 @@ bool hasMultipleZeroes();
 bool hasZeroes();
 int getDirection();
 void turnTest();
+void debug();
 };
 #endif
