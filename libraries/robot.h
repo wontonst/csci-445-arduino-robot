@@ -5,6 +5,7 @@
 #include "irsensor.h"
 #include "Arduino.h"
 #include "turnablesonar.h"
+#include "flexsensor.h"
 
 /**
 @brief high-level abstraction of the robot
@@ -15,6 +16,7 @@ private:
 	DcMotor* dc_wheel_right;///<right wheel controller
 	IrSensor* ir_sensor_left;///<left-facing IR sensor
 	TurnableSonar* sonar_sensor_turnable_front;///<forward-facing sonar, turnable
+	FlexSensor* flex_sensor;
 protected:
 
 public:
@@ -26,6 +28,7 @@ public:
 	static const int DC_WHEEL_RIGHT_PIN_R = 4;
 	static const int SERVO_SONAR_FRONT_PIN = 9;
 	static const int SONAR_SENSOR_FRONT_PIN = 7;
+	static const int FLEX_SENSOR_PIN = A1;
 
 	Robot();
 

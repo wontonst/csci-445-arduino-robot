@@ -6,7 +6,14 @@ IrSensor::IrSensor(int pin) {
 void IrSensor::setup() {
 
 }
-
+void IrSensor::debug() {
+	while(true) {
+		Serial.print("Raw: ");
+		Serial.print(this->getDistanceCm());
+		Serial.print("Sampled: ");
+		Serial.println(this->getDistanceCmSampled(10));
+	}
+}
 int IrSensor::getLastRaw() {
 	return this->last_value;
 }

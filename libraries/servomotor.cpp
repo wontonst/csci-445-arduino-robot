@@ -6,8 +6,18 @@ ServoMotor::ServoMotor(int p) {
 
 void ServoMotor::setup() {
 	servo.attach(this->pin);
-	this->turnTo(90);
-	delay(100);
+	//this->turnTo(90);
+	//delay(100);
+}
+void ServoMotor::debug() {
+	while(true) {
+		for(int i = 0 ; i != 180; i+=45) {
+			Serial.print("Moving to ");
+			Serial.print(i);
+			this->turnTo(i);
+			delay(1000);
+		}
+	}
 }
 
 void ServoMotor::turnTo(int i) {
@@ -15,6 +25,6 @@ void ServoMotor::turnTo(int i) {
 	this->angle = i;
 }
 
-int ServoMotor::getAngle(){
-return this->angle;
+int ServoMotor::getAngle() {
+	return this->angle;
 }

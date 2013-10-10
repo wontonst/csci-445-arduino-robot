@@ -15,6 +15,7 @@ protected:
 public:
 	IrSensor(int pin);
 	void setup();
+void debug();
 
 	int getRawOutput();///<get the raw output from the IR sensor (not very useful)
 	double getRawVoltage();///<get the raw voltage from the IR sensor (not very useful)

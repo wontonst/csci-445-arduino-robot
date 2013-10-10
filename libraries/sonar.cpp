@@ -6,6 +6,14 @@ Sonar::Sonar(int i) {
 
 void Sonar::setup() {
 }
+void Sonar::debug() {
+	while(true) {
+		Serial.print("Raw: ");
+		Serial.print(this->getCm());
+		Serial.print("Sampled: ");
+		Serial.println(this->getCmSampled(10));
+	}
+}
 long Sonar::getRaw() {
 	pinMode(this->pin, OUTPUT);
 	digitalWrite(this->pin, LOW);
@@ -32,7 +40,7 @@ long Sonar::getRawSampled(long samples) {
 	return tot/samples;
 }
 long Sonar::getInchesSampled(long samples) {
-return microsecondsToInches(this->getRawSampled(samples));
+	return microsecondsToInches(this->getRawSampled(samples));
 }
 long Sonar::getCmSampled(long samples) {
 	return microsecondsToCentimeters(this->getRawSampled(samples));

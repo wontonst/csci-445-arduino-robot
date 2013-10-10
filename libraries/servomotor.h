@@ -14,6 +14,8 @@ Servo servo;
 public:
 ServoMotor(int pin);
 void setup();
+void debug();
+
 void turnTo(int i);
 int getAngle();
 

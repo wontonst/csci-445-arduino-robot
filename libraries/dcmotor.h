@@ -12,6 +12,7 @@ int pinL;
 public:
 DcMotor(int pinright, int pinleft);
 void setup();
+void debug();
 
 void forward();
 void reverse();

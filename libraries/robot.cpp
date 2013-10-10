@@ -147,41 +147,73 @@ void Robot::turnTest() {
 }
 
 void Robot::circleTest() {
-	int mid, left, right;
+	int mid, left, right, farleft, farright;
 
-	this->sonar_sensor_turnable_front->turnTo(90);
+
+
+	do {
+	
+		this->sonar_sensor_turnable_front->turnTo(90);
 	delay(2000);
-	while(this->sonar_sensor_turnable_front->getValue()  < 30) {
-		reverse(100);
+	while(this->sonar_sensor_turnable_front->getValue()  < 40) {
+		reverse(150);
 		brakeAll(100);
 	}
-
-	while(true) {
-		this->sonar_sensor_turnable_front->turnTo(30);
-		delay(500);
-		right = this->sonar_sensor_turnable_front->getValue();
-		this->sonar_sensor_turnable_front->turnTo(150);
-		delay(500);
-		mid = this->sonar_sensor_turnable_front->getValue();
+	while(this->sonar_sensor_turnable_front->getValue()  < 80) {
+		turnLeft(400);
+		brakeAll(100);
+	}
+	
+		this->sonar_sensor_turnable_front->turnTo(170);
+		delay(700);
+		farleft = this->sonar_sensor_turnable_front->getValue();
+		//this->sonar_sensor_turnable_front->turnTo(135);
+		//delay(500);
+		//left = this->sonar_sensor_turnable_front->getValue();
 		this->sonar_sensor_turnable_front->turnTo(90);
 		delay(500);
-		left = this->sonar_sensor_turnable_front->getValue();
-		if(mid > left&&mid > right)break;
-		if(mid < left) {
-			turnRight(300);
+		mid = this->sonar_sensor_turnable_front->getValue();
+		//this->sonar_sensor_turnable_front->turnTo(45);
+		//delay(500);
+		//right = this->sonar_sensor_turnable_front->getValue();
+		this->sonar_sensor_turnable_front->turnTo(10);
+		delay(500);
+		farright = this->sonar_sensor_turnable_front->getValue();
+		
+		if(farright > 300 || farright > 300 || mid >300)
+		{
+		forward(200);
+		brakeAll(100);
+		}
+		
+		Serial.print(farright);
+		Serial.print(" ");
+		Serial.print(right);
+		Serial.print(" ");
+		Serial.print(mid);
+		Serial.print(" ");
+		Serial.print(left);
+		Serial.print(" ");
+		Serial.println(farleft);
+		//mid > left&&mid > right && 
+		if(mid > farright && mid > farleft)break;
+		if(farleft > farright) {
+			turnLeft(800);
+			forward(200);
 			brakeAll(100);
 		} else {
-			turnLeft(300);
+			turnRight(800);
+			forward(200);
 			brakeAll(100);
 		}
-	}
+	}while(farleft < 80 && farright < 80 && mid < 80);
 
 	this->sonar_sensor_turnable_front->turnTo(90);
 	delay(2000);
-	while(this->sonar_sensor_turnable_front->getValue()  > 90) {
-		forward(100);
-		brakeAll(100);
+	forward();
+	while(this->sonar_sensor_turnable_front->getValue()  > 98) {
 	}
+	brakeAll();
 }
 /*
 //this->sonar_sensor_turnable_front->setDensity(7);
