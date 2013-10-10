@@ -8,18 +8,18 @@ Robot - central control mechanism
 Sensors
 --------------
 
-IrSensor
++ IrSensor
 http://communityofrobots.com/tutorial/kawal/how-use-sharp-ir-sensor-arduino
-Sonar
++ Sonar
 http://arduino.cc/en/Tutorial/ping
-FlexSensor
++ FlexSensor
 http://bildr.org/2012/11/flex-sensor-arduino/
 
 
 
 Motors
 --------------
-DcMotor
++ DcMotor
 http://communityofrobots.com/tutorial/kawal/how-drive-dc-motor-using-l293d-arduino
-ServoMotor
++ ServoMotor
 http://arduino.cc/en/Tutorial/Knob
