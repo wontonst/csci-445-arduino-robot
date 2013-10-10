@@ -23,3 +23,18 @@ Motors
 http://communityofrobots.com/tutorial/kawal/how-drive-dc-motor-using-l293d-arduino
 + ServoMotor
 http://arduino.cc/en/Tutorial/Knob
+
+
+!!Sample Code
+Here's some simple code to test robot movement. Before this code can run, you must adjust the pin numbers in robot.h to the pins you're using on your Arduino board.
+```
+Robot* robot = new Robot();
+  robot->forward(2000);
+  robot->brakeAll(1500);
+  robot->reverse(1500);
+  robot->brakeAll(1500);
+  robot->turnRight(2000);
+  robot->brakeAll(1500);
+  robot->turnLeft(1500);
+  robot->brakeAll(1500);
+```
