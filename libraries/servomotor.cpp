@@ -6,8 +6,6 @@ ServoMotor::ServoMotor(int p) {
 
 void ServoMotor::setup() {
 	servo.attach(this->pin);
-	//this->turnTo(90);
-	//delay(100);
 }
 void ServoMotor::debug() {
 	while(true) {

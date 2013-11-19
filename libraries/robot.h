@@ -6,6 +6,7 @@
 #include "Arduino.h"
 #include "turnablesonar.h"
 #include "flexsensor.h"
+#include "servomotor.h"
 
 /**
 @brief high-level abstraction of the robot
@@ -17,6 +18,9 @@ private:
 	IrSensor* ir_sensor_left;///<left-facing IR sensor
 	TurnableSonar* sonar_sensor_turnable_front;///<forward-facing sonar, turnable
 	FlexSensor* flex_sensor;
+	
+	ServoMotor* left_arm;
+	ServoMotor* right_arm;
 protected:
 
 public:
@@ -71,6 +75,8 @@ public:
 	void circleTest();
 	
 	void diagnostic();
+	
+	void grab(bool grasp);
 };
 
 #endif

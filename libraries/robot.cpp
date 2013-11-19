@@ -5,12 +5,27 @@ Robot::Robot() {
 	this->dc_wheel_right = new DcMotor(Robot::DC_WHEEL_RIGHT_PIN_L,Robot::DC_WHEEL_RIGHT_PIN_R);
 	this->ir_sensor_left = new IrSensor(Robot::IR_SENSOR_LEFT_PIN);
 	this->sonar_sensor_turnable_front = new TurnableSonar(Robot::SONAR_SENSOR_FRONT_PIN,Robot::SERVO_SONAR_FRONT_PIN);
+
+	this->left_arm = new ServoMotor(12);
+	this->right_arm = new ServoMotor(13);
 }
 void Robot::setup() {
 	this->dc_wheel_left->setup();
 	this->dc_wheel_right->setup();
 	this->ir_sensor_left->setup();
 	this->sonar_sensor_turnable_front->setup();
+
+	this->left_arm->setup();
+	this->right_arm->setup();
+}
+void Robot::grab(bool grasp) {
+	if(grasp) {
+		this->right_arm->turnTo(145);
+		this->left_arm->turnTo(35);
+	} else {
+		this->right_arm->turnTo(180);
+		this->left_arm->turnTo(0);
+	}
 }
 void Robot::brakeAll() {
 	brakeLeft();
@@ -152,18 +167,18 @@ void Robot::circleTest() {
 
 
 	do {
-	
+
 		this->sonar_sensor_turnable_front->turnTo(90);
-	delay(2000);
-	while(this->sonar_sensor_turnable_front->getValue()  < 40) {
-		reverse(150);
-		brakeAll(100);
-	}
-	while(this->sonar_sensor_turnable_front->getValue()  < 80) {
-		turnLeft(400);
-		brakeAll(100);
-	}
-	
+		delay(2000);
+		while(this->sonar_sensor_turnable_front->getValue()  < 40) {
+			reverse(150);
+			brakeAll(100);
+		}
+		while(this->sonar_sensor_turnable_front->getValue()  < 80) {
+			turnLeft(400);
+			brakeAll(100);
+		}
+
 		this->sonar_sensor_turnable_front->turnTo(170);
 		delay(700);
 		farleft = this->sonar_sensor_turnable_front->getValue();
@@ -179,13 +194,12 @@ void Robot::circleTest() {
 		this->sonar_sensor_turnable_front->turnTo(10);
 		delay(500);
 		farright = this->sonar_sensor_turnable_front->getValue();
-		
-		if(farright > 300 || farright > 300 || mid >300)
-		{
-		forward(200);
-		brakeAll(100);
+
+		if(farright > 300 || farright > 300 || mid >300) {
+			forward(200);
+			brakeAll(100);
 		}
-		
+
 		Serial.print(farright);
 		Serial.print(" ");
 		Serial.print(right);
@@ -195,7 +209,7 @@ void Robot::circleTest() {
 		Serial.print(left);
 		Serial.print(" ");
 		Serial.println(farleft);
-		//mid > left&&mid > right && 
+		//mid > left&&mid > right &&
 		if(mid > farright && mid > farleft)break;
 		if(farleft > farright) {
 			turnLeft(800);
@@ -206,7 +220,7 @@ void Robot::circleTest() {
 			forward(200);
 			brakeAll(100);
 		}
-	}while(farleft < 80 && farright < 80 && mid < 80);
+	} while(farleft < 80 && farright < 80 && mid < 80);
 
 	this->sonar_sensor_turnable_front->turnTo(90);
 	delay(2000);

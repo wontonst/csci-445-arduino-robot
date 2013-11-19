@@ -1,45 +1,43 @@
 
 #include <robot.h>
 #include <Servo.h>
-#include <sonar.h>
-#include <servomotor.h>
+//#include <sonar.h>
+//#include <servomotor.h>
 
 Robot* robot = new Robot();
 
 
-Sonar* s1 = new Sonar(Robot::SONAR_SENSOR_FRONT_PIN);
-ServoMotor* sm = new ServoMotor(Robot::SERVO_SONAR_FRONT_PIN);
+//Sonar* s1 = new Sonar(Robot::SONAR_SENSOR_FRONT_PIN);
+//ServoMotor* sm = new ServoMotor(Robot::SERVO_SONAR_FRONT_PIN);
 
 void setup () {
   Serial.begin(9600);
-  robot = new Robot();
   robot->setup();
   //sm->setup();
 }
-int l; 
-int r; 
-int m;
 void loop () {
-  // robot->forward();
-  //for(int i = 0 ; i != 16; i++){
-  //sm->turnTo(i*10);
-  // delay(350);
-  // }
-  //sm->turnTo(0);
-  //delay(1500);
-  //sm->turnTo(90);
-  //delay(1500);
-  //sm->turnTo(180);
-  //delay(1500);
-  // leftTurnTest2();
-  //robot->turnTest();
-  //  diagnostic();
-   robot->circleTest();
-  // robot->frontSonarTest();
-  //robot->followWall();
-  //Serial.println(s1->getCmSampled(10));
-  // robot->diagnostic();
-   delay(103000);
+  //Serial.println("DIAG");
+  //Serial.println("DIAG DONE");
+  //diagnostic();
+    robot->grab(false);
+  if (Serial.available())  {
+    char number = Serial.read();
+    Serial.print("character received: ");
+    Serial.println(number);
+    
+   /* 
+    if(number == 'M'){
+      robot->reverse(400);
+    }
+    else if(number == 'L'){
+      robot->turnLeft(400);
+    }
+    else if(number == 'R'){
+      Serial.println("RIGHT!");
+      robot->turnRight(400);
+    }
+    robot->brakeAll(1);*/
+}
 }
 void diagnostic(){
 
