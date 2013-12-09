@@ -13,31 +13,14 @@ Robot* robot = new Robot();
 void setup () {
   Serial.begin(9600);
   robot->setup();
-  //sm->setup();
 }
 void loop () {
-  //Serial.println("DIAG");
-  //Serial.println("DIAG DONE");
-  //diagnostic();
-    robot->grab(false);
+  robot->grab(false);
   if (Serial.available())  {
     char number = Serial.read();
     Serial.print("character received: ");
     Serial.println(number);
-    
-   /* 
-    if(number == 'M'){
-      robot->reverse(400);
-    }
-    else if(number == 'L'){
-      robot->turnLeft(400);
-    }
-    else if(number == 'R'){
-      Serial.println("RIGHT!");
-      robot->turnRight(400);
-    }
-    robot->brakeAll(1);*/
-}
+  }
 }
 void diagnostic(){
 
@@ -51,50 +34,8 @@ void diagnostic(){
   robot->brakeAll(1500);
 }
 
-void leftTurnTest2(){
-  robot->turnRight(5500);
-  robot->brakeAll(5000);
-  robot->turnLeft(5500);
-  robot->brakeAll(5000);
-
-  robot->turnRight(900);
-  robot->brakeAll(5000);
-  robot->turnLeft(900);
-  robot->brakeAll(5000);
-}
-void leftTurnTest(){
-
-  robot->turnRight(200);
-  robot->brakeAll(5000);
-  robot->turnLeft(200);
-  robot->brakeAll(5000);
-
-  robot->turnRight(400);
-  robot->brakeAll(5000);
-  robot->turnLeft(400);
-  robot->brakeAll(5000);
-
-  robot->turnRight(600);
-  robot->brakeAll(5000);
-  robot->turnLeft(600);
-  robot->brakeAll(5000);
-
-  robot->turnRight(800);
-  robot->brakeAll(5000);
-  robot->turnLeft(800);
-  robot->brakeAll(5000);
-
-  robot->turnRight(1000);
-  robot->brakeAll(5000);
-  robot->turnLeft(1000);
-  robot->brakeAll(5000);
-
-  robot->turnRight(2000);
-  robot->brakeAll(5000);
-  robot->turnLeft(2000);
-  robot->brakeAll(10000);
-
-
+void charToAction(char rpi_input){
+  
 }
 
 
