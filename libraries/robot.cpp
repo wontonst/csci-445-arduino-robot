@@ -14,7 +14,7 @@ void Robot::setup() {
 	this->dc_wheel_right->setup();
 	this->ir_sensor_left->setup();
 	this->sonar_sensor_turnable_front->setup();
-
+	this->flex_sensor->setup();
 	this->left_arm->setup();
 	this->right_arm->setup();
 }
@@ -193,12 +193,12 @@ void Robot::turnLeftX3(int time) {
 void Robot::frontSonarTest() {
 	this->sonar_sensor_turnable_front->sonarDiagnostic();
 }
-void Robot::followWall() {
+void Robot::followWall(double distance_from_wall) {
 	this->brakeAll();
 	delay(2000);
 	while(true) {
 		double currd = this->ir_sensor_left->getDistanceCm();
-		if(currd < 35.0) {
+		if(currd < distance_from_wall) {
 			this->brakeAll(100);
 			this->turnRight(200);
 		} else if(currd > 40.0) {
@@ -288,22 +288,42 @@ void Robot::finalInit() {
 }
 void Robot::finalPartOne() {
 	this->driveToForwardWallMaintainRight();
+	this->mazeRight();
+	//grab object
+	while(true) {
+		if(this->grabIfTriggered())break;
+		forward(200);
+	}
+	//turn around
+	bool arr = true;
+	while(this->sonar_sensor_turnable_front->getValue() < 30) {
+		arr ? this->turnLeft(200) : this->reverseRight();
+	}
 }
+void Robot::finalPartTwo() {
 
+}
+void Robot::finalPartThree() {
+
+}
+void Robot::mazeRight() {
+	while(this->sonar_sensor_turnable_front->getValue() < 30) {
+		this->turnLeft(300);
+	}
+	while(this->sonar_sensor_turnable_front->getValue() < 10) {
+		this->forward(300);
+		while(this->sonar_sensor_turnable_front->getValue() < 30) {
+			this->turnRight(300);
+		}
+	}
+}
 void Robot::driveToForwardWallMaintainRight() {
-	//this->sonar_sensor_turnable_front->turnTo(0);
-	//delay(500);
-	//int ttdrive = this->sonar_sensor_turnable_front->getValue() / 7;
-	//this->sonar_sensor_turnable_front->turnTo(90);
-	//delay(200);
-	//this->forward(ttdrive);
 	this->sonar_sensor_turnable_front->turnTo(0);
 	delay(200);
 	int distance_from_wall = this->sonar_sensor_turnable_front->getValue();
 	if (distance_from_wall > 100) {
 		this->sonar_sensor_turnable_front->turnTo(90);
 		int distance_from_parallel_wall = this->sonar_sensor_turnable_front->getValue();
-
 		while (distance_from_parallel_wall != 20) {
 			if (distance_from_parallel_wall > 30) {
 				while (distance_from_parallel_wall>=20) {
@@ -311,7 +331,6 @@ void Robot::driveToForwardWallMaintainRight() {
 					distance_from_parallel_wall = this->sonar_sensor_turnable_front->getValue();
 				}
 			}
-
 			if (distance_from_parallel_wall < 10) {
 				while(distance_from_parallel_wall<=20) {
 					this->turnLeft();
@@ -319,7 +338,6 @@ void Robot::driveToForwardWallMaintainRight() {
 				}
 			}
 		}
-
 		while(distance_from_wall >100) {
 			this->forward(1000);
 			this->sonar_sensor_turnable_front->turnTo(90);
@@ -327,75 +345,6 @@ void Robot::driveToForwardWallMaintainRight() {
 		}
 	}
 }
-/*
-//this->sonar_sensor_turnable_front->setDensity(7);
-	this->sonar_sensor_turnable_front->sensorPass();
-	int angle = this->sonar_sensor_turnable_front->getGreatestAngle();
-	int value = this->sonar_sensor_turnable_front->getValueAt(90);
-	while( angle != 90 || value  < 20) {
-		if(value < 20) {
-			reverse(200);
-			this->brakeAll(100);
-		}
-		if(angle < 90) {
-			this->turnRight(400);
-			this->brakeAll(100);
-		} else if (angle > 90) {
-			this->turnLeft(400);
-			this->brakeAll(100);
-		}
-		this->sonar_sensor_turnable_front->sensorPass();
-		angle = this->sonar_sensor_turnable_front->getGreatestAngle();
-		value = this->sonar_sensor_turnable_front->getValueAt(90);
-		Serial.println(value);
-	}
-	delay(1000);
-	Sonar* s = new Sonar(9);
-
-	while(s->getCmSampled(5) > 20) {
-		forward(100);
-		brakeAll(50);
-	}
-}*/
-/*
-	this->sonar_sensor_turnable_front->sensorPass();
-	do {
-		int angle = this->sonar_sensor_turnable_front->getGreatestAngle();
-		Serial.println(angle);
-		switch(angle) {
-		case 180:
-			this->turnLeft(800);
-			this->brakeAll(100);
-			//this->forward(600);
-			//this->brakeAll(100);
-			break;
-		case 135:
-			this->turnLeft(500);
-			this->brakeAll(100);
-			this->forward(600);
-			this->brakeAll(100);
-			break;
-		case 90:
-			this->forward(600);
-			this->brakeAll(100);
-			break;
-		case 45:
-			this->turnRight(500);
-			this->brakeAll(100);
-			this->forward(600);
-			this->brakeAll(100);
-			break;
-		case 0:
-			this->turnRight(800);
-			this->brakeAll(100);
-			//this->forward(600);
-			//this->brakeAll(100);
-			break;
-		}
-		this->sonar_sensor_turnable_front->sensorPass();
-		this->sonar_sensor_turnable_front->printSonarValues();
-	}while(!this->sonar_sensor_turnable_front->circleFinished());
-*/
 
 void Robot::diagnostic() {
 	this->turnRight(800);

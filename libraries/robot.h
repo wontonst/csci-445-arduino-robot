@@ -75,7 +75,7 @@ public:
 	void turnLeftX3(int time);
 
 	void frontSonarTest();
-	void followWall();
+	void followWall(double distance_from_wall);
 	void turnTest();
 	void circleTest();
 	
@@ -87,8 +87,11 @@ public:
 	
 	void finalInit();
 	void finalPartOne();
+	void finalPartTwo();
+	void finalPartThree();
 	
 	void driveToForwardWallMaintainRight();
+	void mazeRight();
 };
 
 #endif
