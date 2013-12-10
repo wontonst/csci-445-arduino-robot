@@ -29,22 +29,31 @@ void Robot::wallFollow()
 		this->sonar_sensor_turnable_front->turnTo(0);
 		int distance_from_parallel_wall = this->sonar_sensor_turnable_front->getValue();
 
-		while (distance_from_parallel_wall != 20)
+		while (distance_from_parallel_wall != 5)
 		{
-		if (distance_from_parallel_wall > 30)
+		if (distance_from_parallel_wall > 5)
 		{
-			this->turnRight();
+			while(distance_from_parallel_wall > 5)
+			{
+				this->turnRight(1000);
+				distance_from_parallel_wall = this->sonar_sensor_turnable_front->getValue();
+
+			}
 		}
 
-		if (distance_from_parallel_wall < 10)
+		if (distance_from_parallel_wall < 5)
 		{
-			this->turnLeft();
+			while (distance_from_parallel_wall<5)
+			{
+			this->turnLeft(1000);
+			distance_from_parallel_wall = this->sonar_sensor_turnable_front->getValue();
+			}
 		}
 		}
 
 		while(distance_from_wall >100)
 		{
-			this->forward(1000);
+			this->forward(3000);
 			this->sonar_sensor_turnable_front->turnTo(90);
 			distance_from_wall = this->sonar_turnable_front->getValue();
 		}
