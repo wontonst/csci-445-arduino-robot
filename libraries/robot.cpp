@@ -18,6 +18,38 @@ void Robot::setup() {
 	this->left_arm->setup();
 	this->right_arm->setup();
 }
+
+void Robot::wallFollow()
+{
+	this->sonar_sensor_turnable_front->turnTo(90);
+	delay(200);
+	int distance_from_wall = this->sonar_sensor_turnable_front->getValue();
+	if (distance_from_wall > 100)
+	{
+		this->sonar_sensor_turnable_front->turnTo(0);
+		int distance_from_parallel_wall = this->sonar_sensor_turnable_front->getValue();
+
+		while (distance_from_parallel_wall != 20)
+		{
+		if (distance_from_parallel_wall > 30)
+		{
+			this->turnRight();
+		}
+
+		if (distance_from_parallel_wall < 10)
+		{
+			this->turnLeft();
+		}
+		}
+
+		while(distance_from_wall >100)
+		{
+			this->forward(1000);
+			this->sonar_sensor_turnable_front->turnTo(90);
+			distance_from_wall = this->sonar_turnable_front->getValue();
+		}
+	}
+}
 void Robot::grab(bool grasp) {
 	if(grasp) {
 		this->right_arm->turnTo(145);

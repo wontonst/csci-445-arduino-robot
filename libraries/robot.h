@@ -45,6 +45,8 @@ public:
 	void reverse();
 	void reverse(int time);
 
+	void wallFollow();
+
 	void turnRight();
 	void turnRight(int time);
 	void turnLeft();
