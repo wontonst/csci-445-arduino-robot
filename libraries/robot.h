@@ -33,6 +33,9 @@ public:
 	static const int SERVO_SONAR_FRONT_PIN = 9;
 	static const int SONAR_SENSOR_FRONT_PIN = 7;
 	static const int FLEX_SENSOR_PIN = A1;
+	
+	static const int SERVO_LEFT_ARM_PIN=12;
+	static const int SERVO_RIGHT_ARM_PIN=13;
 
 	Robot();
 
@@ -77,6 +80,7 @@ public:
 	void diagnostic();
 	
 	void grab(bool grasp);
+	bool grabIfTriggered();
 };
 
 #endif

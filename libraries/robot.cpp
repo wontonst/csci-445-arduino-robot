@@ -5,9 +5,9 @@ Robot::Robot() {
 	this->dc_wheel_right = new DcMotor(Robot::DC_WHEEL_RIGHT_PIN_L,Robot::DC_WHEEL_RIGHT_PIN_R);
 	this->ir_sensor_left = new IrSensor(Robot::IR_SENSOR_LEFT_PIN);
 	this->sonar_sensor_turnable_front = new TurnableSonar(Robot::SONAR_SENSOR_FRONT_PIN,Robot::SERVO_SONAR_FRONT_PIN);
-
-	this->left_arm = new ServoMotor(12);
-	this->right_arm = new ServoMotor(13);
+	this->flex_sensor = new FlexSensor(Robot::FLEX_SENSOR_PIN);
+	this->left_arm = new ServoMotor(Robot::SERVO_LEFT_ARM_PIN);
+	this->right_arm = new ServoMotor(Robot::SERVO_RIGHT_ARM_PIN);
 }
 void Robot::setup() {
 	this->dc_wheel_left->setup();
@@ -17,6 +17,14 @@ void Robot::setup() {
 
 	this->left_arm->setup();
 	this->right_arm->setup();
+}
+bool Robot::grabIfTriggered() {
+//this->flex_sensor->debug();
+	if(this->flex_sensor->triggered()) {
+		this->grab(true);
+		return true;
+	}
+	return false;
 }
 void Robot::grab(bool grasp) {
 	if(grasp) {
