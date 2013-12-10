@@ -81,6 +81,12 @@ public:
 	
 	void grab(bool grasp);
 	bool grabIfTriggered();
+	
+	
+	void finalInit();
+	void finalPartOne();
+	
+	void driveToForwardWallMaintainRight();
 };
 
 #endif

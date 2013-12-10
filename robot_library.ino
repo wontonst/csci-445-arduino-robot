@@ -16,9 +16,8 @@ void setup () {
 }
 void loop () {
   //diagnostic();
-  robot->grab(false);
-  delay(1000);
-  
+  robot->finalInit();
+robot->finalPartOne();  
   //while(true){
   //  robot->grabIfTriggered();
   //}
