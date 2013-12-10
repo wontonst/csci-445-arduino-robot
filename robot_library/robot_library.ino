@@ -15,7 +15,14 @@ void setup () {
   robot->setup();
 }
 void loop () {
-  robot->grab(false);
+  //diagnostic();
+  robot->finalInit();
+robot->finalPartOne();  
+  //while(true){
+  //  robot->grabIfTriggered();
+  //}
+  
+  
   if (Serial.available())  {
     char number = Serial.read();
     Serial.print("character received: ");
@@ -25,7 +32,7 @@ void loop () {
 void diagnostic(){
 
   robot->forward(2000);
-  robot->brakeAll(1500);
+  robot->brakeAll(1500); 
   robot->reverse(1500);
   robot->brakeAll(1500);
   robot->turnRight(2000);
@@ -35,8 +42,9 @@ void diagnostic(){
 }
 
 void charToAction(char rpi_input){
-  
+
 }
+
 
 
 

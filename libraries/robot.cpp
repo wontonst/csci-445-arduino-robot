@@ -5,9 +5,9 @@ Robot::Robot() {
 	this->dc_wheel_right = new DcMotor(Robot::DC_WHEEL_RIGHT_PIN_L,Robot::DC_WHEEL_RIGHT_PIN_R);
 	this->ir_sensor_left = new IrSensor(Robot::IR_SENSOR_LEFT_PIN);
 	this->sonar_sensor_turnable_front = new TurnableSonar(Robot::SONAR_SENSOR_FRONT_PIN,Robot::SERVO_SONAR_FRONT_PIN);
-
-	this->left_arm = new ServoMotor(12);
-	this->right_arm = new ServoMotor(13);
+	this->flex_sensor = new FlexSensor(Robot::FLEX_SENSOR_PIN);
+	this->left_arm = new ServoMotor(Robot::SERVO_LEFT_ARM_PIN);
+	this->right_arm = new ServoMotor(Robot::SERVO_RIGHT_ARM_PIN);
 }
 void Robot::setup() {
 	this->dc_wheel_left->setup();
@@ -18,6 +18,7 @@ void Robot::setup() {
 	this->left_arm->setup();
 	this->right_arm->setup();
 }
+
 
 void Robot::wallFollow()
 {
@@ -58,6 +59,15 @@ void Robot::wallFollow()
 			distance_from_wall = this->sonar_turnable_front->getValue();
 		}
 	}
+
+bool Robot::grabIfTriggered() {
+//this->flex_sensor->debug();
+	if(this->flex_sensor->triggered()) {
+		this->grab(true);
+		return true;
+	}
+	return false;
+
 }
 void Robot::grab(bool grasp) {
 	if(grasp) {
@@ -269,6 +279,53 @@ void Robot::circleTest() {
 	while(this->sonar_sensor_turnable_front->getValue()  > 98) {
 	}
 	brakeAll();
+}
+
+void Robot::finalInit() {
+	this->grab(false);
+	this->sonar_sensor_turnable_front->turnTo(0);
+	delay(1000);
+}
+void Robot::finalPartOne() {
+	this->driveToForwardWallMaintainRight();
+}
+
+void Robot::driveToForwardWallMaintainRight() {
+	//this->sonar_sensor_turnable_front->turnTo(0);
+	//delay(500);
+	//int ttdrive = this->sonar_sensor_turnable_front->getValue() / 7;
+	//this->sonar_sensor_turnable_front->turnTo(90);
+	//delay(200);
+	//this->forward(ttdrive);
+	this->sonar_sensor_turnable_front->turnTo(0);
+	delay(200);
+	int distance_from_wall = this->sonar_sensor_turnable_front->getValue();
+	if (distance_from_wall > 100) {
+		this->sonar_sensor_turnable_front->turnTo(90);
+		int distance_from_parallel_wall = this->sonar_sensor_turnable_front->getValue();
+
+		while (distance_from_parallel_wall != 20) {
+			if (distance_from_parallel_wall > 30) {
+				while (distance_from_parallel_wall>=20) {
+					this->turnRight();
+					distance_from_parallel_wall = this->sonar_sensor_turnable_front->getValue();
+				}
+			}
+
+			if (distance_from_parallel_wall < 10) {
+				while(distance_from_parallel_wall<=20) {
+					this->turnLeft();
+					this->sonar_sensor_turnable_front->getValue();
+				}
+			}
+		}
+
+		while(distance_from_wall >100) {
+			this->forward(1000);
+			this->sonar_sensor_turnable_front->turnTo(90);
+			distance_from_wall = this->sonar_sensor_turnable_front->getValue();
+		}
+	}
 }
 /*
 //this->sonar_sensor_turnable_front->setDensity(7);

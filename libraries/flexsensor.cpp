@@ -7,14 +7,14 @@ int FlexSensor::read() {
 }
 bool FlexSensor::triggered() {
 	int red = this->read();
-	return red < 370 || red > 500;
+	return red < 280 || red > 500;
 }
 void FlexSensor::setup() {
 
 }
 void FlexSensor::debug() {
 	while(true) {
-		Serial.print(this->read());
+		Serial.println(this->read());
 		delay(100);
 	}
 }
