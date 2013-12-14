@@ -102,6 +102,7 @@ Using the compass, attempt to turn to a certain angle.
 	void finalPartThree();
 	
 	void forwardUntilWall();
+	void forwardUntilWall(int distance);
 	void driveToForwardWallMaintainRight();
 	void mazeRight();
 };

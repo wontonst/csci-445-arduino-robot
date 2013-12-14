@@ -339,6 +339,8 @@ this->forwardUntilWall();
 this->turnTo(Robot::NORTH_ANGLE-90,8);
 this->forwardUntilWall();
 this->turnTo(Robot::NORTH_ANGLE,8);
+//forward until we reach turn
+
 }
 void Robot::finalPartThree()
 {
@@ -360,13 +362,21 @@ void Robot::mazeRight()
 	this->turnTo(Robot::NORTH_ANGLE,8);
 	this->forwardUntilWall();
 	this->turnTo(Robot::NORTH_ANGLE-180,8);
-	this->forwardUntilWall();
+	this->forwardUntilWall(80);
+	this->turnTo(Robot::NORTH_ANGLE,8);
+	this->forwardUntilWall(60);
+	this->turnTo(Robot::NORTH_ANGLE-90,8);
+	//we're at maze now
+//	this->mazeRight();
 }
-void Robot::forwardUntilWall()
+void Robot::forwardUntilWall(){
+this->forwardUntilWall(20);
+}
+void Robot::forwardUntilWall(int distance)
 {
 	this->sonar_sensor_turnable_front->turnTo(0);
 	delay(300);
-	while(this->sonar_sensor_turnable_front->getValue() > 20) {
+	while(this->sonar_sensor_turnable_front->getValue() > distance) {
 		this->forward(300);
 		this->brakeAll(100);
 	}
