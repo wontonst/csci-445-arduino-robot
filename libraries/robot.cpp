@@ -327,11 +327,18 @@ void Robot::finalPartOne()
 		forward(200);
 	}
 	//turn around
-	this->turnTo(Robot::NORTH-90);
+	this->turnTo(Robot::NORTH_ANGLE,8);
 }
 void Robot::finalPartTwo()
 {
-
+this->forwardUntilWall();
+this->turnTo(Robot::NORTH_ANGLE-90,8)
+this->forwardUntilWall();
+this->turnTo(Robot::NORTH_ANGLE-180,8)
+this->forwardUntilWall();
+this->turnTo(Robot::NORTH_ANGLE-90,8)
+this->forwardUntilWall();
+this->turnTo(Robot::NORTH_ANGLE,8);
 }
 void Robot::finalPartThree()
 {
