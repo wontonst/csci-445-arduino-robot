@@ -319,7 +319,7 @@ void Robot::finalPartOne()
 //this->compass->debug();
 //	this->debugTurn();
 	this->driveToForwardWallMaintainRight();
-	this->mazeRight();
+	this->mazeLeft();
 	Serial.println("finishmaze");
 	//grab object
 	while(true) {
@@ -346,7 +346,7 @@ void Robot::finalPartThree()
 {
 
 }
-void Robot::mazeRight()
+void Robot::mazeLeft()
 {
 
 //	while(this->compass->getValue() < 30)
@@ -359,15 +359,11 @@ void Robot::mazeRight()
 	this->forwardUntilWall();
 	this->turnTo(Robot::NORTH_ANGLE+90,8);
 	this->forwardUntilWall();
-	this->turnTo(Robot::NORTH_ANGLE,8);
-	this->forwardUntilWall();
 	this->turnTo(Robot::NORTH_ANGLE-180,8);
-	this->forwardUntilWall(80);
-	this->turnTo(Robot::NORTH_ANGLE,8);
-	this->forwardUntilWall(60);
-	this->turnTo(Robot::NORTH_ANGLE-90,8);
-	//we're at maze now
-//	this->mazeRight();
+	this->forwardUntilWall();
+}
+void Robot::mazeRight(){
+
 }
 void Robot::forwardUntilWall(){
 this->forwardUntilWall(20);
