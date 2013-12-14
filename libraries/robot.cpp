@@ -332,11 +332,11 @@ void Robot::finalPartOne()
 void Robot::finalPartTwo()
 {
 this->forwardUntilWall();
-this->turnTo(Robot::NORTH_ANGLE-90,8)
+this->turnTo(Robot::NORTH_ANGLE-90,8);
 this->forwardUntilWall();
-this->turnTo(Robot::NORTH_ANGLE-180,8)
+this->turnTo(Robot::NORTH_ANGLE-180,8);
 this->forwardUntilWall();
-this->turnTo(Robot::NORTH_ANGLE-90,8)
+this->turnTo(Robot::NORTH_ANGLE-90,8);
 this->forwardUntilWall();
 this->turnTo(Robot::NORTH_ANGLE,8);
 }
