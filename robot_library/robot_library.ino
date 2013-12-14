@@ -18,11 +18,11 @@ void setup () {
   robot->setup();
 }
 void loop () {
-  if(done)delay(1000);
-                                              // diagnostic(); 
+  if(done)return;
+  // diagnostic(); 
   robot->finalInit();
-   robot->finalPartOne();
- robot->finalPartTwo();  
+  robot->finalPartOne();
+  robot->finalPartTwo();  
   done=true;
   //while(true){
   //  robot->grabIfTriggered();
@@ -43,6 +43,7 @@ void diagnostic(){
 void charToAction(char rpi_input){
 
 }
+
 
 
 

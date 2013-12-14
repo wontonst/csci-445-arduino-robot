@@ -381,9 +381,9 @@ void Robot::driveToForwardWallMaintainRight()
 		delay(500);
 		distance_from_wall = this->sonar_sensor_turnable_front->getValue();
 
-		if(distance_from_wall < 25)break;
+		if(distance_from_wall < 20)break;
 
-		this->forward(1000);
+		this->forward(900);
 		this->brakeAll();
 
 		this->sonar_sensor_turnable_front->turnTo(90);
@@ -393,11 +393,11 @@ void Robot::driveToForwardWallMaintainRight()
 			this->brakeAll();
 			int dfsw = this->sonar_sensor_turnable_front->getValue();
 			if(dfsw < desired-margin) {
-				this->turnLeft(200);
+				this->turnLeft(180);
 			} else if(dfsw > desired+margin) {
-				this->turnRight(200);
+				this->turnRight(180);
 			} else good=true;
-			forward(400);
+			forward(300);
 		}
 		this->brakeAll();
 	}
@@ -413,9 +413,9 @@ void Robot::turnTo(int angle, int accuracy_offset)
 //		Serial.print("Compensating...");
 		int difference = this->compass->headingDifference(angle);
 		if(difference > 0) {
-			this->turnRight(200);
+			this->turnRight(250);
 		} else {
-			this->turnLeft(200);
+			this->turnLeft(250);
 		}
 		this->brakeAll(300);
 //		Serial.println("done");
