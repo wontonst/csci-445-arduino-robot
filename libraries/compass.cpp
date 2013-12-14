@@ -49,32 +49,38 @@ int Compass::getValueSampled()
 int Compass::headingDifference(int angle)
 {
 	int difference = angle-this->getValue();
+	if(difference < 0) {
+		if(difference < -180)
+			return difference +360;
+	}
 	if(difference > 180)
-	difference -= 360;
+		difference -= 360;
 	return difference;
-/*		
-	10 330
-	-40
-	
-	330, 10
-	40
-	
-	200 240
-	40
-	
-	240 200
-	-40
-	
-	20 201
-	-179
-	
-	20 199
-	179
-	
-	20 200
-	+-180
-	*/
-	return difference;
+	/*
+		10 330
+		-40
+
+		270 10
+		100
+
+		330, 10
+		40
+
+		200 240
+		40
+
+		240 200
+		-40
+
+		20 201
+		-179
+
+		20 199
+		179
+
+		20 200
+		+-180
+		*/
 }
 bool Compass::atProperHeading(int angle, int accuracy_offset)
 {

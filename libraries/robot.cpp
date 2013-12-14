@@ -355,7 +355,7 @@ void Robot::mazeRight()
 
 	this->turnTo(Robot::NORTH_ANGLE,8);
 	this->forwardUntilWall();
-	this->turnTo(Robot::NORTH_ANGLE+90-360,8);
+	this->turnTo(Robot::NORTH_ANGLE+90,8);
 	this->forwardUntilWall();
 	this->turnTo(Robot::NORTH_ANGLE,8);
 	this->forwardUntilWall();
@@ -407,6 +407,7 @@ void Robot::turnTo(int angle, int accuracy_offset)
 //	Serial.print("Turn to ");
 //	Serial.println(angle);
 	while(angle > 359) angle -= 359;
+	while(angle < 0)angle += 359;
 
 	while(!this->compass->atProperHeading(angle,accuracy_offset)) {
 		delay(100);
@@ -417,10 +418,10 @@ void Robot::turnTo(int angle, int accuracy_offset)
 		} else {
 			this->turnLeft(250);
 		}
-		this->brakeAll(300);
+		this->brakeAll(400);
 //		Serial.println("done");
 	}
-}
+}//first turn good next two turns bad
 void Robot::debugTurn()
 {
 	while(true)

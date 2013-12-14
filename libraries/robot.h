@@ -39,7 +39,7 @@ public:
 	static const int SERVO_LEFT_ARM_PIN=12;
 	static const int SERVO_RIGHT_ARM_PIN=13;
 	
-	static const int NORTH_ANGLE = 273;
+	static const int NORTH_ANGLE = 276;
 
 	Robot();
 
