@@ -13,6 +13,7 @@ Compass();
 int getValue();
 void setup();
 void debug();
+void debugTurn(Robot* robot, int angle);
 void turnTo(Robot* robot, int angle);
 bool atProperHeading(int angle);
 int headingDifference(int angle);

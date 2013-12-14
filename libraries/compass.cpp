@@ -49,11 +49,12 @@ void Compass::turnTo(Robot* robot, int angle, int accuracy_offset)
 {
 	while(!this->atProperHeading(angle,accuracy_offset) {
 	int difference = this->headingDifference(angle);
-	if(difference < 0){
-	
-	}else{
-	
-	}
+		if(difference < 0) {
+			robot->turnRight(300);
+		} else {
+			robot->turnLeft(300);
+		}
+		robot->brakeAll();
 	}
 }
 int Compass::headingDifference(int angle)
@@ -67,16 +68,7 @@ int Compass::headingDifference(int angle)
 	}
 bool Compass::atProperHeading(int angle, int accuracy_offset)
 {
-	int heading = this->getValueSampled();
-	if(angle - heading < accuracy_offset || heading-angle < accuracy_offset)
-		return true;
-	if(heading > 360-accuracy_offset) {
-		if(heading + accuracy_offset - 360 > angle)
-			return true;
-	}
-	if(heading < offset) {
-		if(heading - accuracy_offset + 360 > angle)
-			return true;
-	}
-	return false;
+	int diff= this->headingDifference(angle);
+	if(diff < 0)diff = diff*-1;
+	return (diff < accuracy_offset);
 }
