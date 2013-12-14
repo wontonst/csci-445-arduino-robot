@@ -348,7 +348,7 @@ this->turnTo(Robot::NORTH_ANGLE+90,7);
 //now facing far wall, trying to reach near middle
 this->forwardUntilWall(135);
 this->turnTo(Robot::NORTH_ANGLE,8);
-this->forwardUntilWall(60);
+this->forwardUntilWall(80);
 //at maze
 this->mazeRight();
 this->forwardUntilWall();
