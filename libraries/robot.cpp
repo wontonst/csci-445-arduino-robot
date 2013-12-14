@@ -327,10 +327,7 @@ void Robot::finalPartOne()
 		forward(200);
 	}
 	//turn around
-	bool arr = true;
-	while(this->sonar_sensor_turnable_front->getValue() < 30) {
-		arr ? this->turnLeft(200) : this->reverseRight();
-	}
+	this->turnTo(Robot::NORTH-90);
 }
 void Robot::finalPartTwo()
 {
@@ -342,7 +339,6 @@ void Robot::finalPartThree()
 }
 void Robot::mazeRight()
 {
-	int bottom_to_top = 310;
 
 //	while(this->compass->getValue() < 30)
 //		this->turnLeft(300);
@@ -350,13 +346,13 @@ void Robot::mazeRight()
 //		this->turnLeft(300);
 //	}
 
-	this->turnTo(bottom_to_top,5);
+	this->turnTo(Robot::NORTH_ANGLE,8);
 	this->forwardUntilWall();
-	this->turnTo(bottom_to_top+90-360,5);
+	this->turnTo(Robot::NORTH_ANGLE+90-360,8);
 	this->forwardUntilWall();
-	this->turnTo(bottom_to_top,5);
+	this->turnTo(Robot::NORTH_ANGLE,8);
 	this->forwardUntilWall();
-	this->turnTo(bottom_to_top-180,5);
+	this->turnTo(Robot::NORTH_ANGLE-180,8);
 	this->forwardUntilWall();
 }
 void Robot::forwardUntilWall()
@@ -380,7 +376,7 @@ void Robot::driveToForwardWallMaintainRight()
 
 		if(distance_from_wall < 25)break;
 
-		this->forward(2000);
+		this->forward(1000);
 		this->brakeAll();
 
 		this->sonar_sensor_turnable_front->turnTo(90);
@@ -394,7 +390,7 @@ void Robot::driveToForwardWallMaintainRight()
 			} else if(dfsw > desired+margin) {
 				this->turnRight(200);
 			} else good=true;
-			forward(500);
+			forward(400);
 		}
 		this->brakeAll();
 	}
@@ -410,9 +406,9 @@ void Robot::turnTo(int angle, int accuracy_offset)
 //		Serial.print("Compensating...");
 		int difference = this->compass->headingDifference(angle);
 		if(difference < 0) {
-			this->turnLeft(300);
+			this->turnLeft(200);
 		} else {
-			this->turnRight(300);
+			this->turnRight(200);
 		}
 		this->brakeAll(300);
 //		Serial.println("done");

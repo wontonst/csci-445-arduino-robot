@@ -21,7 +21,8 @@ void loop () {
   if(done)delay(1000);
                                               // diagnostic(); 
   robot->finalInit();
-   robot->finalPartOne();  
+   robot->finalPartOne();
+ robot->finalPartTwo();  
   done=true;
   //while(true){
   //  robot->grabIfTriggered();
