@@ -412,10 +412,10 @@ void Robot::turnTo(int angle, int accuracy_offset)
 		delay(100);
 //		Serial.print("Compensating...");
 		int difference = this->compass->headingDifference(angle);
-		if(difference < 0) {
-			this->turnLeft(200);
-		} else {
+		if(difference > 0) {
 			this->turnRight(200);
+		} else {
+			this->turnLeft(200);
 		}
 		this->brakeAll(300);
 //		Serial.println("done");
