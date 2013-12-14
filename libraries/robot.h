@@ -71,6 +71,13 @@ public:
 	void reverseLeft(int time);
 	void reverseRight();
 	void reverseRight(int time);
+	
+	void debugTurn();
+/**
+Using the compass, attempt to turn to a certain angle.
+*/
+	void turnTo(int angle, int accuracy_offset);
+
 
 	void turnLeftX1(int time);
 	void turnLeftX2(int time);
@@ -92,6 +99,7 @@ public:
 	void finalPartTwo();
 	void finalPartThree();
 	
+	void forwardUntilWall();
 	void driveToForwardWallMaintainRight();
 	void mazeRight();
 };

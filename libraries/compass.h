@@ -4,18 +4,19 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include "irobotpart.h"
-#include "robot.h"
 
 class Compass : IRobotPart{
 
 public:
 Compass();
+
 int getValue();
+int getValueSampled();
+
 void setup();
 void debug();
-void debugTurn(Robot* robot, int angle);
-void turnTo(Robot* robot, int angle);
-bool atProperHeading(int angle);
+
+bool atProperHeading(int angle, int accuracy_offset);
 int headingDifference(int angle);
 
 private:

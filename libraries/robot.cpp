@@ -319,6 +319,7 @@ void Robot::finalInit()
 void Robot::finalPartOne()
 {
 //this->compass->debug();
+//	this->debugTurn();
 	this->driveToForwardWallMaintainRight();
 	this->mazeRight();
 	Serial.println("finishmaze");
@@ -345,20 +346,27 @@ void Robot::mazeRight()
 {
 	int bottom_to_top = 310;
 
-	while(this->compass->getValue() < 30)
-		this->turnLeft(300);
-	while(this->compass->getValue() > 310) {
-		this->turnLeft(300);
-	}
-	this->forward();
-	while(this->sonar_sensor_turnable_front->getValue() > 20) {}
-	this->brakeAll();
+//	while(this->compass->getValue() < 30)
+//		this->turnLeft(300);
+//	while(this->compass->getValue() > 310) {
+//		this->turnLeft(300);
+//	}
 
-	while(this->sonar_sensor_turnable_front->getValue() < 10) {
+	this->turnTo(bottom_to_top,10);
+	this->forwardUntilWall();
+	this->turnTo(bottom_to_top+90-360,10);
+	this->forwardUntilWall();
+	this->turnTo(bottom_to_top,10);
+	this->forwardUntilWall();
+	this->turnTo(bottom_to_top-180,10);
+	this->forwardUntilWall();
+}
+void Robot::forwardUntilWall(){
+this->sonar_sensor_turnable_front->turnTo(0);
+delay(300);
+	while(this->sonar_sensor_turnable_front->getValue() > 20) {
 		this->forward(300);
-		while(this->sonar_sensor_turnable_front->getValue() < 30) {
-			this->turnRight(300);
-		}
+		this->brakeAll(100);
 	}
 }
 void Robot::driveToForwardWallMaintainRight()
@@ -367,7 +375,6 @@ void Robot::driveToForwardWallMaintainRight()
 	int margin = 3;
 	float distance_from_wall;
 	while(true) {
-	Serial.println("fuk robotics");
 		this->sonar_sensor_turnable_front->turnTo(0);
 		delay(500);
 		distance_from_wall = this->sonar_sensor_turnable_front->getValue();
@@ -393,7 +400,33 @@ void Robot::driveToForwardWallMaintainRight()
 		this->brakeAll();
 	}
 }
+void Robot::turnTo(int angle, int accuracy_offset)
+{
+	Serial.print("Turn to ");
+	Serial.println(angle);
+	while(angle > 359) angle -= 359;
 
+	while(!this->compass->atProperHeading(angle,accuracy_offset)) {
+		delay(100);
+		Serial.print("Compensating...");
+		int difference = this->compass->headingDifference(angle);
+		if(difference < 0) {
+			this->turnRight(300);
+		} else {
+			this->turnLeft(300);
+		}
+		this->brakeAll(300);
+		Serial.println("done");
+	}
+}
+void Robot::debugTurn()
+{
+	while(true)
+		for(int i = 0 ; i != 7; i++) {
+			this->turnTo(45*i,15);
+			delay(1000);
+		}
+}
 void Robot::diagnostic()
 {
 	this->turnRight(800);

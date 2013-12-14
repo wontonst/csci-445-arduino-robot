@@ -17,6 +17,7 @@ void Compass::debug()
 	while(true) {
 		Serial.print(this->getValue());
 		Serial.println();
+		delay(500);
 	}
 }
 int Compass::getValue()
@@ -34,38 +35,26 @@ int Compass::getValue()
 	lowByte = Wire.read();
 	int bearing = ((highByte<<8)+lowByte)/10;
 
-	delay(100);
+	delay(200);
 	return bearing;
 }
 int Compass::getValueSampled()
 {
 	int tot = 0;
 	for(int i = 0 ; i != 5; i++) {
-		tot += this->getValue():
-		       }
-	       return tot/5;
-}
-void Compass::turnTo(Robot* robot, int angle, int accuracy_offset)
-{
-	while(!this->atProperHeading(angle,accuracy_offset) {
-	int difference = this->headingDifference(angle);
-		if(difference < 0) {
-			robot->turnRight(300);
-		} else {
-			robot->turnLeft(300);
-		}
-		robot->brakeAll();
+		tot += this->getValue();
 	}
+	return tot/5;
 }
 int Compass::headingDifference(int angle)
 {
-	int difference = this->getValueSampled() - angle;
+	int difference = this->getValue() - angle;
 	if(difference < -360)
 		difference += 360;
 	if(difference > 360)
-		difference -= 360);
-		return difference;
-	}
+		difference -= 360;
+	return difference;
+}
 bool Compass::atProperHeading(int angle, int accuracy_offset)
 {
 	int diff= this->headingDifference(angle);
