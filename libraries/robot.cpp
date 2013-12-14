@@ -326,6 +326,8 @@ void Robot::finalPartOne()
 		if(this->grabIfTriggered())break;
 		forward(200);
 	}
+	reverse(400);
+	this->brakeAll();
 	//turn around
 	this->turnTo(Robot::NORTH_ANGLE,8);
 }
@@ -339,31 +341,49 @@ this->forwardUntilWall();
 this->turnTo(Robot::NORTH_ANGLE-90,8);
 this->forwardUntilWall();
 this->turnTo(Robot::NORTH_ANGLE,8);
-//forward until we reach turn
-
+this->forwardUntilWall();
+this->turnTo(Robot::NORTH_ANGLE+90,8);
+//now facing far wall, trying to reach near middle
+this->forwardUntilWall(80);
+this->turnTo(Robot::NORTH_ANGLE,8);
+this->forwardUntilWall(60);
+//at maze
+this->mazeRight();
+this->forwardUntilWall();
+this->reverse(200);
+this->turnTo(NORTH_ANGLE,8);
 }
 void Robot::finalPartThree()
 {
-
+this->forwardUntilWall();
+this->turnTo(Robot::NORTH_ANGLE+90,8);
+this->forwardUntilWall();
+this->turnTo(Robot::NORTH_ANGLE+180,8);
+this->forwardUntilWall();
+this->turnTo(Robot::NORTH_ANGLE+90,8);
+this->forwardUntilWall();
+this->turnTo(Robot::NORTH_ANGLE+180,8);
+//facing far wall
+this->forwardUntilWall(80);
+this->turnTo(Robot::NORTH_ANGLE+90,8);
+this->forwardUntilWall();
+this->turnTo(Robot::NORTH_ANGLE,8);
+this->forwardUntilWall();
 }
 void Robot::mazeLeft()
 {
-
-//	while(this->compass->getValue() < 30)
-//		this->turnLeft(300);
-//	while(this->compass->getValue() > 310) {
-//		this->turnLeft(300);
-//	}
-
+	this->turnTo(Robot::NORTH_ANGLE,8);
+	this->forwardUntilWall();
+	this->turnTo(Robot::NORTH_ANGLE-90,8);
+	this->forwardUntilWall();
+	this->turnTo(Robot::NORTH_ANGLE-180,8);
+}
+void Robot::mazeRight(){
 	this->turnTo(Robot::NORTH_ANGLE,8);
 	this->forwardUntilWall();
 	this->turnTo(Robot::NORTH_ANGLE+90,8);
 	this->forwardUntilWall();
 	this->turnTo(Robot::NORTH_ANGLE-180,8);
-	this->forwardUntilWall();
-}
-void Robot::mazeRight(){
-
 }
 void Robot::forwardUntilWall(){
 this->forwardUntilWall(20);

@@ -21,7 +21,7 @@ void loop () {
   if(done)return;
   // diagnostic(); 
   robot->finalInit();
-  robot->finalPartOne();
+//  robot->finalPartOne();
   robot->finalPartTwo();  
   done=true;
   //while(true){
