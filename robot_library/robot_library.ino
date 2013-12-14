@@ -7,6 +7,7 @@
 //#include <servomotor.h>
 
 Robot* robot = new Robot();
+bool done =false;
 
 
 //Sonar* s1 = new Sonar(Robot::SONAR_SENSOR_FRONT_PIN);
@@ -17,17 +18,18 @@ void setup () {
   robot->setup();
 }
 void loop () {
+  if(done)delay(1000);
                                               // diagnostic(); 
   robot->finalInit();
    robot->finalPartOne();  
-  return;
+  done=true;
   //while(true){
   //  robot->grabIfTriggered();
   //}  
 }
 void diagnostic(){
 
-  robot->forward(2000);
+  robot->forward(2000); 
   robot->brakeAll(1500); 
   robot->reverse(1500);
   robot->brakeAll(1500);
