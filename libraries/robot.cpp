@@ -333,18 +333,20 @@ void Robot::finalPartOne()
 }
 void Robot::finalPartTwo()
 {
+this->grab(true);
 this->forwardUntilWall();
 this->turnTo(Robot::NORTH_ANGLE-90,8);
 this->forwardUntilWall();
 this->turnTo(Robot::NORTH_ANGLE-180,8);
 this->forwardUntilWall();
-this->turnTo(Robot::NORTH_ANGLE-90,8);
+//leaving maze
+this->turnTo(Robot::NORTH_ANGLE-85,8);
 this->forwardUntilWall();
 this->turnTo(Robot::NORTH_ANGLE,8);
 this->forwardUntilWall();
-this->turnTo(Robot::NORTH_ANGLE+90,8);
+this->turnTo(Robot::NORTH_ANGLE+90,7);
 //now facing far wall, trying to reach near middle
-this->forwardUntilWall(80);
+this->forwardUntilWall(135);
 this->turnTo(Robot::NORTH_ANGLE,8);
 this->forwardUntilWall(60);
 //at maze
@@ -355,6 +357,7 @@ this->turnTo(NORTH_ANGLE,8);
 }
 void Robot::finalPartThree()
 {
+this->grab(true);
 this->forwardUntilWall();
 this->turnTo(Robot::NORTH_ANGLE+90,8);
 this->forwardUntilWall();
@@ -364,7 +367,7 @@ this->turnTo(Robot::NORTH_ANGLE+90,8);
 this->forwardUntilWall();
 this->turnTo(Robot::NORTH_ANGLE+180,8);
 //facing far wall
-this->forwardUntilWall(80);
+this->forwardUntilWall(130);
 this->turnTo(Robot::NORTH_ANGLE+90,8);
 this->forwardUntilWall();
 this->turnTo(Robot::NORTH_ANGLE,8);
@@ -381,7 +384,7 @@ void Robot::mazeLeft()
 void Robot::mazeRight(){
 	this->turnTo(Robot::NORTH_ANGLE,8);
 	this->forwardUntilWall();
-	this->turnTo(Robot::NORTH_ANGLE+90,8);
+	this->turnTo(Robot::NORTH_ANGLE-90,8);
 	this->forwardUntilWall();
 	this->turnTo(Robot::NORTH_ANGLE-180,8);
 }
