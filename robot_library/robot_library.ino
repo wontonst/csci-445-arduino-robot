@@ -23,6 +23,7 @@ void loop () {
   robot->finalInit();
 //  robot->finalPartOne();
   robot->finalPartTwo();  
+  robot->finalPartThree();
   done=true;
   //while(true){
   //  robot->grabIfTriggered();
