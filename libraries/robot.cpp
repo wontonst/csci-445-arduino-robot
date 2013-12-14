@@ -8,6 +8,7 @@ Robot::Robot() {
 	this->flex_sensor = new FlexSensor(Robot::FLEX_SENSOR_PIN);
 	this->left_arm = new ServoMotor(Robot::SERVO_LEFT_ARM_PIN);
 	this->right_arm = new ServoMotor(Robot::SERVO_RIGHT_ARM_PIN);
+	this->compass = new Compass();
 }
 void Robot::setup() {
 	this->dc_wheel_left->setup();
@@ -17,6 +18,7 @@ void Robot::setup() {
 	this->flex_sensor->setup();
 	this->left_arm->setup();
 	this->right_arm->setup();
+	this->compass->setup();
 }
 
 
@@ -56,8 +58,9 @@ void Robot::wallFollow()
 		{
 			this->forward(3000);
 			this->sonar_sensor_turnable_front->turnTo(90);
-			distance_from_wall = this->sonar_turnable_front->getValue();
+			distance_from_wall = this->sonar_sensor_turnable_front->getValue();
 		}
+	}
 	}
 
 bool Robot::grabIfTriggered() {
@@ -267,7 +270,7 @@ void Robot::circleTest() {
 			forward(200);
 			brakeAll(100);
 		} else {
-			turnRight(800);
+			turnRight(800);                                                                                                            
 			forward(200);
 			brakeAll(100);
 		}
@@ -287,7 +290,10 @@ void Robot::finalInit() {
 	delay(1000);
 }
 void Robot::finalPartOne() {
+//this->compass->debug();
 	this->driveToForwardWallMaintainRight();
+	
+//	return;
 	this->mazeRight();
 	//grab object
 	while(true) {
@@ -307,9 +313,17 @@ void Robot::finalPartThree() {
 
 }
 void Robot::mazeRight() {
-	while(this->sonar_sensor_turnable_front->getValue() < 30) {
+int bottom_to_top = 310;
+
+while(this->compass->getValue() < 30)
 		this->turnLeft(300);
-	}
+while(this->compass->getValue() > 310){
+this->turnLeft(300);
+}
+this->forward();
+while(this->sonar_sensor_turnable_front->getValue() > 20){}
+this->brakeAll();
+
 	while(this->sonar_sensor_turnable_front->getValue() < 10) {
 		this->forward(300);
 		while(this->sonar_sensor_turnable_front->getValue() < 30) {
@@ -318,33 +332,32 @@ void Robot::mazeRight() {
 	}
 }
 void Robot::driveToForwardWallMaintainRight() {
+int desired = 18;
+int margin = 3;
+float distance_from_wall;
+do{
 	this->sonar_sensor_turnable_front->turnTo(0);
-	delay(200);
-	int distance_from_wall = this->sonar_sensor_turnable_front->getValue();
-	if (distance_from_wall > 100) {
-		this->sonar_sensor_turnable_front->turnTo(90);
-		int distance_from_parallel_wall = this->sonar_sensor_turnable_front->getValue();
-		while (distance_from_parallel_wall != 20) {
-			if (distance_from_parallel_wall > 30) {
-				while (distance_from_parallel_wall>=20) {
-					this->turnRight();
-					distance_from_parallel_wall = this->sonar_sensor_turnable_front->getValue();
-				}
-			}
-			if (distance_from_parallel_wall < 10) {
-				while(distance_from_parallel_wall<=20) {
-					this->turnLeft();
-					this->sonar_sensor_turnable_front->getValue();
-				}
-			}
+	delay(400);
+	distance_from_wall = this->sonar_sensor_turnable_front->getValue();
+
+	bool good = true;
+	this->sonar_sensor_turnable_front->turnTo(90);
+	delay(400);
+	do{
+	int dfsw = this->sonar_sensor_turnable_front->getValue();	
+		if(dfsw < desired-margin){
+			this->turnLeft();
+			good=false;
 		}
-		while(distance_from_wall >100) {
-			this->forward(1000);
-			this->sonar_sensor_turnable_front->turnTo(90);
-			distance_from_wall = this->sonar_sensor_turnable_front->getValue();
-		}
-	}
-}
+		else if(dfsw > desired+margin){
+			this->turnRight();
+			good=false;
+		}else good=true;
+	}while(!good);
+	this->forward();
+} while(distance_from_wall > 30);
+this->brakeAll();
+}		
 
 void Robot::diagnostic() {
 	this->turnRight(800);

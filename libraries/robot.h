@@ -6,6 +6,7 @@
 #include "Arduino.h"
 #include "turnablesonar.h"
 #include "flexsensor.h"
+#include "compass.h"
 #include "servomotor.h"
 
 /**
@@ -18,6 +19,7 @@ private:
 	IrSensor* ir_sensor_left;///<left-facing IR sensor
 	TurnableSonar* sonar_sensor_turnable_front;///<forward-facing sonar, turnable
 	FlexSensor* flex_sensor;
+	Compass* compass;
 	
 	ServoMotor* left_arm;
 	ServoMotor* right_arm;

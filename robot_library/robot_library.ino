@@ -1,6 +1,8 @@
 
 #include <robot.h>
 #include <Servo.h>
+#include <Wire.h>
+
 //#include <sonar.h>
 //#include <servomotor.h>
 
@@ -15,19 +17,13 @@ void setup () {
   robot->setup();
 }
 void loop () {
-  //diagnostic();
+                                              // diagnostic(); 
   robot->finalInit();
-robot->finalPartOne();  
+   robot->finalPartOne();  
+  return;
   //while(true){
   //  robot->grabIfTriggered();
-  //}
-  
-  
-  if (Serial.available())  {
-    char number = Serial.read();
-    Serial.print("character received: ");
-    Serial.println(number);
-  }
+  //}  
 }
 void diagnostic(){
 
@@ -44,6 +40,7 @@ void diagnostic(){
 void charToAction(char rpi_input){
 
 }
+
 
 
 
