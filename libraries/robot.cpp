@@ -344,9 +344,9 @@ this->turnTo(Robot::NORTH_ANGLE-85,8);
 this->forwardUntilWall();
 this->turnTo(Robot::NORTH_ANGLE,8);
 this->forwardUntilWall();
-this->turnTo(Robot::NORTH_ANGLE+90,7);
+this->turnTo(Robot::NORTH_ANGLE+100,7);
 //now facing far wall, trying to reach near middle
-this->forwardUntilWall(135);
+this->forwardUntilWall();
 this->turnTo(Robot::NORTH_ANGLE,8);
 this->forwardUntilWall(80);
 //at maze
@@ -443,12 +443,12 @@ void Robot::turnTo(int angle, int accuracy_offset)
 //		Serial.print("Compensating...");
 		int difference = this->compass->headingDifference(angle);
 		if(difference > 0) {
-			this->turnRight(100);
-			this->brakeAll(80);
+			this->turnRight(150);
+			this->brakeAll(70);
 			this->turnRight(150);
 		} else {
-			this->turnRight(100);
-			this->brakeAll(80);
+			this->turnRight(150);
+			this->brakeAll(70);
 			this->turnRight(150);
 		}
 		this->brakeAll(400);

@@ -57,6 +57,9 @@ int Compass::headingDifference(int angle)
 		difference -= 360;
 	return difference;
 	/*
+		270 180
+		-90
+	
 		10 330
 		-40
 
