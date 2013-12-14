@@ -244,8 +244,6 @@ void Robot::circleTest()
 {
 	int mid, left, right, farleft, farright;
 
-
-
 	do {
 
 		this->sonar_sensor_turnable_front->turnTo(90);
@@ -352,18 +350,19 @@ void Robot::mazeRight()
 //		this->turnLeft(300);
 //	}
 
-	this->turnTo(bottom_to_top,10);
+	this->turnTo(bottom_to_top,5);
 	this->forwardUntilWall();
-	this->turnTo(bottom_to_top+90-360,10);
+	this->turnTo(bottom_to_top+90-360,5);
 	this->forwardUntilWall();
-	this->turnTo(bottom_to_top,10);
+	this->turnTo(bottom_to_top,5);
 	this->forwardUntilWall();
-	this->turnTo(bottom_to_top-180,10);
+	this->turnTo(bottom_to_top-180,5);
 	this->forwardUntilWall();
 }
-void Robot::forwardUntilWall(){
-this->sonar_sensor_turnable_front->turnTo(0);
-delay(300);
+void Robot::forwardUntilWall()
+{
+	this->sonar_sensor_turnable_front->turnTo(0);
+	delay(300);
 	while(this->sonar_sensor_turnable_front->getValue() > 20) {
 		this->forward(300);
 		this->brakeAll(100);
@@ -379,7 +378,7 @@ void Robot::driveToForwardWallMaintainRight()
 		delay(500);
 		distance_from_wall = this->sonar_sensor_turnable_front->getValue();
 
-		if(distance_from_wall < 30)break;
+		if(distance_from_wall < 25)break;
 
 		this->forward(2000);
 		this->brakeAll();
@@ -402,21 +401,21 @@ void Robot::driveToForwardWallMaintainRight()
 }
 void Robot::turnTo(int angle, int accuracy_offset)
 {
-	Serial.print("Turn to ");
-	Serial.println(angle);
+//	Serial.print("Turn to ");
+//	Serial.println(angle);
 	while(angle > 359) angle -= 359;
 
 	while(!this->compass->atProperHeading(angle,accuracy_offset)) {
 		delay(100);
-		Serial.print("Compensating...");
+//		Serial.print("Compensating...");
 		int difference = this->compass->headingDifference(angle);
 		if(difference < 0) {
-			this->turnRight(300);
-		} else {
 			this->turnLeft(300);
+		} else {
+			this->turnRight(300);
 		}
 		this->brakeAll(300);
-		Serial.println("done");
+//		Serial.println("done");
 	}
 }
 void Robot::debugTurn()
