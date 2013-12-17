@@ -4,23 +4,31 @@ Robot::Robot()
 {
 	this->dc_wheel_left = new DcMotor(Robot::DC_WHEEL_LEFT_PIN_L, Robot::DC_WHEEL_LEFT_PIN_R);
 	this->dc_wheel_right = new DcMotor(Robot::DC_WHEEL_RIGHT_PIN_L,Robot::DC_WHEEL_RIGHT_PIN_R);
-	this->ir_sensor_left = new IrSensor(Robot::IR_SENSOR_LEFT_PIN);
+	//this->ir_sensor_left = new IrSensor(Robot::IR_SENSOR_LEFT_PIN);
 	this->sonar_sensor_turnable_front = new TurnableSonar(Robot::SONAR_SENSOR_FRONT_PIN,Robot::SERVO_SONAR_FRONT_PIN);
-	this->flex_sensor = new FlexSensor(Robot::FLEX_SENSOR_PIN);
-	this->left_arm = new ServoMotor(Robot::SERVO_LEFT_ARM_PIN);
-	this->right_arm = new ServoMotor(Robot::SERVO_RIGHT_ARM_PIN);
+	//this->flex_sensor = new FlexSensor(Robot::FLEX_SENSOR_PIN);
+	//this->left_arm = new ServoMotor(Robot::SERVO_LEFT_ARM_PIN);
+	//this->right_arm = new ServoMotor(Robot::SERVO_RIGHT_ARM_PIN);
 	this->compass = new Compass();
 }
 void Robot::setup()
 {
-	this->dc_wheel_left->setup();
-	this->dc_wheel_right->setup();
-	this->ir_sensor_left->setup();
-	this->sonar_sensor_turnable_front->setup();
-	this->flex_sensor->setup();
-	this->left_arm->setup();
-	this->right_arm->setup();
-	this->compass->setup();
+	if(this->dc_wheel_left != NULL)
+		this->dc_wheel_left->setup();
+	if(this->dc_wheel_right != NULL)
+		this->dc_wheel_right->setup();
+	if(this->ir_sensor_left != NULL)
+		this->ir_sensor_left->setup();
+	if(this->sonar_sensor_turnable_front != NULL)
+		this->sonar_sensor_turnable_front->setup();
+	if(this->flex_sensor!= NULL)
+		this->flex_sensor->setup();
+	if(this->left_arm != NULL)
+		this->left_arm->setup();
+	if(this->right_arm != NULL)
+		this->right_arm->setup();
+	if(this->compass != NULL)
+		this->compass->setup();
 }
 
 
@@ -70,6 +78,7 @@ bool Robot::grabIfTriggered()
 }
 void Robot::grab(bool grasp)
 {
+	if(this->left_arm == NULL || this->right_arm == NULL)return;
 	if(grasp) {
 		this->right_arm->turnTo(145);
 		this->left_arm->turnTo(35);
@@ -310,7 +319,7 @@ void Robot::circleTest()
 
 void Robot::finalInit()
 {
-	this->grab(false);
+//	this->grab(false);
 	this->sonar_sensor_turnable_front->turnTo(0);
 	delay(1000);
 }
@@ -479,13 +488,19 @@ void Robot::debugTurn()
 void Robot::diagnostic()
 {
 	this->forward(2000);
+	Serial.println("FORWARD TESTED");
 	this->brakeAll(1500);
+	Serial.println("BRAKE TESTED");
 	this->reverse(1500);
+	Serial.println("REVERSE TESTED");
 	this->brakeAll(1500);
 	this->turnRight(2000);
+	Serial.println("RIGHT TURN TESTED");
 	this->brakeAll(1500);
 	this->turnLeft(1500);
+	Serial.println("LEFT TURN TESTED");
 	this->brakeAll(1500);
+	Serial.println("DIAGNOSTIC COMPLETE");
 }
 
 
@@ -493,7 +508,7 @@ void Robot::findAndGrab()
 {
 //	while(true) {
 	//	if(this->grabIfTriggered())break;
-		//forward(200);
+	//forward(200);
 	//}
 	int angle = 30;
 	while(true) {
