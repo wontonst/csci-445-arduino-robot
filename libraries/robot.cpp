@@ -318,87 +318,92 @@ void Robot::finalPartOne()
 {
 //this->compass->debug();
 //	this->debugTurn();
+	this->turnTo(Robot::NORTH_ANGLE + 90);
 	this->driveToForwardWallMaintainRight();
 	this->mazeLeft();
-	Serial.println("finishmaze");
-	//grab object
-	while(true) {
-		if(this->grabIfTriggered())break;
-		forward(200);
-	}
-	reverse(400);
-	this->brakeAll();
+//	Serial.println("finishmaze");
+	//this->findAndGrab();
+	//reverse(400);
+	this->forwardUntilWall();
 	//turn around
-	this->turnTo(Robot::NORTH_ANGLE,8);
+	this->turnTo(Robot::NORTH_ANGLE);
 }
 void Robot::finalPartTwo()
 {
-this->grab(true);
-this->forwardUntilWall();
-this->turnTo(Robot::NORTH_ANGLE-90,8);
-this->forwardUntilWall();
-this->turnTo(Robot::NORTH_ANGLE-180,8);
-this->forwardUntilWall();
+	this->grab(true);
+	this->forwardUntilWall();
+	this->turnTo(Robot::NORTH_ANGLE-90);
+	this->forwardUntilWall();
+	this->turnTo(Robot::NORTH_ANGLE-180);
+	this->forwardUntilWall();
 //leaving maze
-this->turnTo(Robot::NORTH_ANGLE-85,8);
-this->forwardUntilWall();
-this->turnTo(Robot::NORTH_ANGLE,8);
-this->forwardUntilWall();
-this->turnTo(Robot::NORTH_ANGLE+100,7);
-//now facing far wall, trying to reach near middle
-this->forwardUntilWall();
-this->turnTo(Robot::NORTH_ANGLE,8);
-this->forwardUntilWall(80);
+	this->turnTo(Robot::NORTH_ANGLE-85);
+	this->forwardUntilWall();
+	this->turnTo(Robot::NORTH_ANGLE+2);
+	this->forwardUntilWall();
+	this->turnTo(Robot::NORTH_ANGLE+98);
+//angled approach towards first maze wall
+	this->forwardUntilWall();
+	this->turnTo(Robot::NORTH_ANGLE);
+	this->forwardUntilWall(70);
+	this->turnTo(Robot::NORTH_ANGLE-90);
+	this->forwardUntilWall();
+
 //at maze
-this->mazeRight();
-this->forwardUntilWall();
-this->reverse(200);
-this->turnTo(NORTH_ANGLE,8);
+	this->mazeRight();
+	this->forwardUntilWall();
+	this->reverse(200);
+	this->turnTo(NORTH_ANGLE);
 }
 void Robot::finalPartThree()
 {
-this->grab(true);
-this->forwardUntilWall();
-this->turnTo(Robot::NORTH_ANGLE+90,8);
-this->forwardUntilWall();
-this->turnTo(Robot::NORTH_ANGLE+180,8);
-this->forwardUntilWall();
-this->turnTo(Robot::NORTH_ANGLE+90,8);
-this->forwardUntilWall();
-this->turnTo(Robot::NORTH_ANGLE+180,8);
+	this->grab(true);
+	this->forwardUntilWall();
+	this->turnTo(Robot::NORTH_ANGLE+90);
+	this->forwardUntilWall();
+	this->turnTo(Robot::NORTH_ANGLE+180);
+	this->forwardUntilWall();
+	this->turnTo(Robot::NORTH_ANGLE+90);
+	this->forwardUntilWall();
+	this->turnTo(Robot::NORTH_ANGLE+150);
 //facing far wall
-this->forwardUntilWall(130);
-this->turnTo(Robot::NORTH_ANGLE+90,8);
-this->forwardUntilWall();
-this->turnTo(Robot::NORTH_ANGLE,8);
-this->forwardUntilWall();
+	this->forwardUntilWall();
+	this->turnTo(Robot::NORTH_ANGLE+90);
+	this->forwardUntilWall();
+	this->turnTo(Robot::NORTH_ANGLE);
+	this->forwardUntilWall();
+	this->grab(false);
+	this->reverse(1000);
+	this->brakeAll();
 }
 void Robot::mazeLeft()
 {
-	this->turnTo(Robot::NORTH_ANGLE,8);
+	this->turnTo(Robot::NORTH_ANGLE);
 	this->forwardUntilWall();
-	this->turnTo(Robot::NORTH_ANGLE-90,8);
+	this->turnTo(Robot::NORTH_ANGLE+90);
 	this->forwardUntilWall();
-	this->turnTo(Robot::NORTH_ANGLE-180,8);
+	this->turnTo(Robot::NORTH_ANGLE+175);
 }
-void Robot::mazeRight(){
-	this->turnTo(Robot::NORTH_ANGLE,8);
+void Robot::mazeRight()
+{
+	this->turnTo(Robot::NORTH_ANGLE);
 	this->forwardUntilWall();
-	this->turnTo(Robot::NORTH_ANGLE-90,8);
+	this->turnTo(Robot::NORTH_ANGLE-90);
 	this->forwardUntilWall();
-	this->turnTo(Robot::NORTH_ANGLE-180,8);
+	this->turnTo(Robot::NORTH_ANGLE-180);
 }
-void Robot::forwardUntilWall(){
-this->forwardUntilWall(20);
+void Robot::forwardUntilWall()
+{
+	this->forwardUntilWall(18);
 }
 void Robot::forwardUntilWall(int distance)
 {
 	this->sonar_sensor_turnable_front->turnTo(0);
 	delay(300);
 	while(this->sonar_sensor_turnable_front->getValue() > distance) {
-		this->forward(300);
-		this->brakeAll(100);
+		this->forward(170);
 	}
+	this->brakeAll();
 }
 void Robot::driveToForwardWallMaintainRight()
 {
@@ -407,16 +412,20 @@ void Robot::driveToForwardWallMaintainRight()
 	float distance_from_wall;
 	while(true) {
 		this->sonar_sensor_turnable_front->turnTo(0);
-		delay(500);
+		delay(550);
 		distance_from_wall = this->sonar_sensor_turnable_front->getValue();
 
 		if(distance_from_wall < 20)break;
 
 		this->forward(900);
+		distance_from_wall = this->sonar_sensor_turnable_front->getValue();
+
+		if(distance_from_wall < 20)break;
+
 		this->brakeAll();
 
 		this->sonar_sensor_turnable_front->turnTo(90);
-		delay(500);
+		delay(550);
 		bool good=false;
 		while(!good) {
 			this->brakeAll();
@@ -431,6 +440,10 @@ void Robot::driveToForwardWallMaintainRight()
 		this->brakeAll();
 	}
 }
+void Robot::turnTo(int angle)
+{
+	this->turnTo(angle,Robot::DEFAULT_TURN_ACCURACY);
+}
 void Robot::turnTo(int angle, int accuracy_offset)
 {
 //	Serial.print("Turn to ");
@@ -444,14 +457,14 @@ void Robot::turnTo(int angle, int accuracy_offset)
 		int difference = this->compass->headingDifference(angle);
 		if(difference > 0) {
 			this->turnRight(150);
-			this->brakeAll(70);
-			this->turnRight(150);
+			//this->brakeAll(70);
+			this->turnRight(50);
 		} else {
-			this->turnRight(150);
-			this->brakeAll(70);
-			this->turnRight(150);
+			this->turnLeft(150);
+			//this->brakeAll(70);
+			this->turnLeft(50);
 		}
-		this->brakeAll(400);
+		this->brakeAll(300);
 //		Serial.println("done");
 	}
 }//first turn good next two turns bad
@@ -465,6 +478,33 @@ void Robot::debugTurn()
 }
 void Robot::diagnostic()
 {
-	this->turnRight(800);
-	this->brakeAll(200);
+	this->forward(2000);
+	this->brakeAll(1500);
+	this->reverse(1500);
+	this->brakeAll(1500);
+	this->turnRight(2000);
+	this->brakeAll(1500);
+	this->turnLeft(1500);
+	this->brakeAll(1500);
+}
+
+
+void Robot::findAndGrab()
+{
+//	while(true) {
+	//	if(this->grabIfTriggered())break;
+		//forward(200);
+	//}
+	int angle = 30;
+	while(true) {
+		forward();
+		if(this->grabIfTriggered())break;
+		if(this->sonar_sensor_turnable_front->getValue() < 9) {
+			this->reverse(1000);
+			this->turnTo(Robot::NORTH_ANGLE + 180 + angle);
+			angle-=5;
+			if(angle < -30)angle = 30;
+		}
+	}
+
 }

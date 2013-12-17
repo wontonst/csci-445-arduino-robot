@@ -12,7 +12,8 @@
 /**
 @brief high-level abstraction of the robot
 */
-class Robot {
+class Robot
+{
 private:
 	DcMotor* dc_wheel_left;///<left wheel controller
 	DcMotor* dc_wheel_right;///<right wheel controller
@@ -20,7 +21,7 @@ private:
 	TurnableSonar* sonar_sensor_turnable_front;///<forward-facing sonar, turnable
 	FlexSensor* flex_sensor;
 	Compass* compass;
-	
+
 	ServoMotor* left_arm;
 	ServoMotor* right_arm;
 protected:
@@ -35,17 +36,26 @@ public:
 	static const int SERVO_SONAR_FRONT_PIN = 9;
 	static const int SONAR_SENSOR_FRONT_PIN = 7;
 	static const int FLEX_SENSOR_PIN = A1;
-	
+
 	static const int SERVO_LEFT_ARM_PIN=12;
 	static const int SERVO_RIGHT_ARM_PIN=13;
-	
-	static const int NORTH_ANGLE = 275;
+
+	static const int NORTH_ANGLE = 270;
+	static const int DEFAULT_TURN_ACCURACY = 5;
 
 	Robot();
 
+	/**
+Performs the necessary Arduino calls to set up all active components.
+*/
 	void setup();
-
+/**
+Immediately brakes wheels.
+*/
 	void brakeAll();
+	/**
+	Immediately brakes wheels and waits.
+	*/
 	void brakeAll(int time);
 	void forward();
 	void forward(int time);
@@ -73,13 +83,13 @@ public:
 	void reverseLeft(int time);
 	void reverseRight();
 	void reverseRight(int time);
-	
-	void debugTurn();
-/**
-Using the compass, attempt to turn to a certain angle.
-*/
-	void turnTo(int angle, int accuracy_offset);
 
+	void debugTurn();
+	/**
+	Using the compass, attempt to turn to a certain angle.
+	*/
+	void turnTo(int angle, int accuracy_offset);
+	void turnTo(int angle);
 
 	void turnLeftX1(int time);
 	void turnLeftX2(int time);
@@ -89,23 +99,24 @@ Using the compass, attempt to turn to a certain angle.
 	void followWall(double distance_from_wall);
 	void turnTest();
 	void circleTest();
-	
+
 	void diagnostic();
-	
+
 	void grab(bool grasp);
 	bool grabIfTriggered();
-	
-	
+
+
 	void finalInit();
 	void finalPartOne();
 	void finalPartTwo();
 	void finalPartThree();
-	
+
 	void forwardUntilWall();
 	void forwardUntilWall(int distance);
 	void driveToForwardWallMaintainRight();
 	void mazeRight();
 	void mazeLeft();
+	void findAndGrab();
 };
 
 #endif

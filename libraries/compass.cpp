@@ -41,10 +41,10 @@ int Compass::getValue()
 int Compass::getValueSampled()
 {
 	int tot = 0;
-	for(int i = 0 ; i != 5; i++) {
+	for(int i = 0 ; i != Compass::SAMPLE_SIZE; i++) {
 		tot += this->getValue();
 	}
-	return tot/5;
+	return tot/Compass::SAMPLE_SIZE;
 }
 int Compass::headingDifference(int angle)
 {

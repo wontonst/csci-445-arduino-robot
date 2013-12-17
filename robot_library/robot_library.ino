@@ -19,26 +19,17 @@ void setup () {
 }
 void loop () {
   if(done)return;
-  // diagnostic(); 
   robot->finalInit();
-//  robot->finalPartOne();
+//  robot->findAndGrab();
+ // done=true;
+//   robot->diagnostic(); 
+  robot->finalPartOne();
   robot->finalPartTwo();  
   robot->finalPartThree();
   done=true;
   //while(true){
   //  robot->grabIfTriggered();
   //}  
-}
-void diagnostic(){
-
-  robot->forward(2000); 
-  robot->brakeAll(1500); 
-  robot->reverse(1500);
-  robot->brakeAll(1500);
-  robot->turnRight(2000);
-  robot->brakeAll(1500);
-  robot->turnLeft(1500);
-  robot->brakeAll(1500);
 }
 
 void charToAction(char rpi_input){
