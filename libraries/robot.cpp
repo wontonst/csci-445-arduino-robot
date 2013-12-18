@@ -4,11 +4,11 @@ Robot::Robot()
 {
 	this->dc_wheel_left = new DcMotor(Robot::DC_WHEEL_LEFT_PIN_L, Robot::DC_WHEEL_LEFT_PIN_R);
 	this->dc_wheel_right = new DcMotor(Robot::DC_WHEEL_RIGHT_PIN_L,Robot::DC_WHEEL_RIGHT_PIN_R);
-	//this->ir_sensor_left = new IrSensor(Robot::IR_SENSOR_LEFT_PIN);
+	this->ir_sensor_left = new IrSensor(Robot::IR_SENSOR_LEFT_PIN);
 	this->sonar_sensor_turnable_front = new TurnableSonar(Robot::SONAR_SENSOR_FRONT_PIN,Robot::SERVO_SONAR_FRONT_PIN);
-	//this->flex_sensor = new FlexSensor(Robot::FLEX_SENSOR_PIN);
-	//this->left_arm = new ServoMotor(Robot::SERVO_LEFT_ARM_PIN);
-	//this->right_arm = new ServoMotor(Robot::SERVO_RIGHT_ARM_PIN);
+	this->flex_sensor = new FlexSensor(Robot::FLEX_SENSOR_PIN);
+	this->left_arm = new ServoMotor(Robot::SERVO_LEFT_ARM_PIN);
+	this->right_arm = new ServoMotor(Robot::SERVO_RIGHT_ARM_PIN);
 	this->compass = new Compass();
 }
 void Robot::setup()
@@ -325,6 +325,7 @@ void Robot::finalInit()
 }
 void Robot::finalPartOne()
 {
+//this->sonar_sensor_turnable_front->debug();
 //this->compass->debug();
 //	this->debugTurn();
 	this->turnTo(Robot::NORTH_ANGLE + 90);
@@ -341,27 +342,29 @@ void Robot::finalPartTwo()
 {
 	this->grab(true);
 	this->forwardUntilWall();
-	this->turnTo(Robot::NORTH_ANGLE-90);
+	this->turnTo(Robot::NORTH_ANGLE-100);
 	this->forwardUntilWall();
 	this->turnTo(Robot::NORTH_ANGLE-180);
 	this->forwardUntilWall();
 //leaving maze
 	this->turnTo(Robot::NORTH_ANGLE-85);
-	this->forwardUntilWall();
-	this->turnTo(Robot::NORTH_ANGLE+2);
-	this->forwardUntilWall();
-	this->turnTo(Robot::NORTH_ANGLE+98);
+	this->forward(3300);
+	this->brakeAll();
+//	this->forwardUntilWall();
+//	this->turnTo(Robot::NORTH_ANGLE+10);
+//	this->forwardUntilWall();
+//	this->turnTo(Robot::NORTH_ANGLE+112);
 //angled approach towards first maze wall
-	this->forwardUntilWall();
-	this->turnTo(Robot::NORTH_ANGLE);
-	this->forwardUntilWall(70);
-	this->turnTo(Robot::NORTH_ANGLE-90);
+//	this->forwardUntilWall(20);
+	this->turnTo(Robot::NORTH_ANGLE-7);//-11);
+	this->forwardUntilWall(69);
+	this->turnTo(Robot::NORTH_ANGLE-95);
 	this->forwardUntilWall();
 
 //at maze
 	this->mazeRight();
 	this->forwardUntilWall();
-	this->reverse(200);
+//	this->reverse(200);
 	this->turnTo(NORTH_ANGLE);
 }
 void Robot::finalPartThree()
@@ -373,13 +376,15 @@ void Robot::finalPartThree()
 	this->turnTo(Robot::NORTH_ANGLE+180);
 	this->forwardUntilWall();
 	this->turnTo(Robot::NORTH_ANGLE+90);
-	this->forwardUntilWall();
-	this->turnTo(Robot::NORTH_ANGLE+150);
+	forward(500);
+	this->turnTo(Robot::NORTH_ANGLE + 86);
+	this->forwardUntilWall(40);
+	this->turnTo(Robot::NORTH_ANGLE+154);
 //facing far wall
 	this->forwardUntilWall();
 	this->turnTo(Robot::NORTH_ANGLE+90);
 	this->forwardUntilWall();
-	this->turnTo(Robot::NORTH_ANGLE);
+	this->turnTo(Robot::NORTH_ANGLE-15);
 	this->forwardUntilWall();
 	this->grab(false);
 	this->reverse(1000);
@@ -399,7 +404,7 @@ void Robot::mazeRight()
 	this->forwardUntilWall();
 	this->turnTo(Robot::NORTH_ANGLE-90);
 	this->forwardUntilWall();
-	this->turnTo(Robot::NORTH_ANGLE-180);
+	this->turnTo(Robot::NORTH_ANGLE-165);
 }
 void Robot::forwardUntilWall()
 {
@@ -416,7 +421,7 @@ void Robot::forwardUntilWall(int distance)
 }
 void Robot::driveToForwardWallMaintainRight()
 {
-	int desired = 18;
+	int desired = 17;
 	int margin = 3;
 	float distance_from_wall;
 	while(true) {
@@ -426,7 +431,7 @@ void Robot::driveToForwardWallMaintainRight()
 
 		if(distance_from_wall < 20)break;
 
-		this->forward(900);
+		this->forward(700);
 		distance_from_wall = this->sonar_sensor_turnable_front->getValue();
 
 		if(distance_from_wall < 20)break;
@@ -461,19 +466,22 @@ void Robot::turnTo(int angle, int accuracy_offset)
 	while(angle < 0)angle += 359;
 
 	while(!this->compass->atProperHeading(angle,accuracy_offset)) {
-		delay(100);
 //		Serial.print("Compensating...");
 		int difference = this->compass->headingDifference(angle);
 		if(difference > 0) {
-			this->turnRight(150);
-			//this->brakeAll(70);
-			this->turnRight(50);
+			if(difference > 45) {
+				this->turnRight(350);
+			} else {
+				this->turnRight(120);
+			}
 		} else {
-			this->turnLeft(150);
-			//this->brakeAll(70);
-			this->turnLeft(50);
+			if(difference < -45) {
+				this->turnLeft(350);
+			} else {
+				this->turnLeft(120);
+			}
 		}
-		this->brakeAll(300);
+		this->brakeAll(500);
 //		Serial.println("done");
 	}
 }//first turn good next two turns bad
