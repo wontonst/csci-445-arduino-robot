@@ -115,6 +115,9 @@ void TurnableSonar::sonarDiagnostic() {
 	}
 }
 void TurnableSonar::debug() {
+while(true){
+Serial.println(this->sonar->getCmSampled(5));
+}
 	for(int i = 0 ; i != this->density; i++) {
 		Serial.print("{");
 		Serial.print(i);

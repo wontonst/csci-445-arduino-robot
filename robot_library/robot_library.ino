@@ -15,22 +15,25 @@ bool done =false;
 
 void setup () {
   Serial.begin(9600);
-  //robot->setup();
+  robot->setup();
 }
 void loop () {
-   robot->diagnostic(); 
-  /*
+//  while(true)
+ //  robot->diagnostic(); 
   if(done)return;
+  Serial.println("Initialization.");
   robot->finalInit();
 //  robot->findAndGrab();
  // done=true;
+ Serial.println("Part one");
   robot->finalPartOne();
+  Serial.println("Part two");
   robot->finalPartTwo();  
   robot->finalPartThree();
-  done=true;
+  done=true; 
   //while(true){
   //  robot->grabIfTriggered();
-  //}  */
+  //}  
 }
 
 void charToAction(char rpi_input){
